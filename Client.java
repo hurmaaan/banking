@@ -17,7 +17,8 @@ public class Client implements Role {
             System.out.println("4. Transfer");
             System.out.println("5. Apply for Loan");
             System.out.println("6. Repay Loan");
-            System.out.println("7. Logout");
+            System.out.println("7. List transaction history");
+            System.out.println("8. Logout");
             System.out.print("Choose an option: ");
             int choice = scanner.getNextInt();
             scanner.getNextLine();
@@ -41,7 +42,8 @@ public class Client implements Role {
                     repayLoan();
                     break;
                 case 7:
-                    RecordedCommand.reset();
+                    listTransactions();
+                case 8:
                     System.out.println("Logging out...");
                     return;
                 default:
@@ -49,6 +51,12 @@ public class Client implements Role {
             }
         }
 
+    }
+
+    private void listTransactions() {
+        System.out.print("Enter your accountId");
+        String accId = scanner.getNextLine();
+        new CmdListTransactions().execute(new String[] { username, accId });
     }
 
     private void repayLoan() {
@@ -62,18 +70,31 @@ public class Client implements Role {
     }
 
     private void transfer() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'transfer'");
+        System.out.print("Enter your account number: ");
+        String accId = scanner.getNextLine();
+        System.out.print("Enter other account number: ");
+        String accId2 = scanner.getNextLine();
+        System.out.print("Enter amount to transfer");
+        String amount = scanner.getNextLine();
+        new Transfer(Double.parseDouble(amount), true, accId2).execute(new String[] { username, accId });
     }
 
     private void withdraw() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'withdraw'");
+        System.out.print("Enter your account number: ");
+        String accId = scanner.getNextLine();
+        System.out.print("Enter amount to withdraw");
+        String amount = scanner.getNextLine();
+        new Withdrawal(Double.parseDouble(amount)).execute(new String[] { accId, username });
+
     }
 
     private void deposit() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deposit'");
+        System.out.print("Enter your account number: ");
+        String accId = scanner.getNextLine();
+        System.out.print("Enter amount to deposit");
+        String amount = scanner.getNextLine();
+        new Deposit(Double.parseDouble(amount)).execute(new String[] { accId, username });
+
     }
 
     private void viewAccountDetails() {

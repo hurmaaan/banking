@@ -9,7 +9,7 @@ public class Bank {
     Authenticator authenticator;
 
     private Bank() {
-        // accounts = new ArrayList<>();
+
         userDatabase = UserDatabase.getInstance();
         authenticator = new Authenticator(userDatabase);
         accounts = new ArrayList<>();
@@ -71,5 +71,30 @@ public class Bank {
         Account a = getAccountById(string);
         accounts.remove(a);
         return a;
+    }
+
+    public Account userHasAccount(String username, String accId) {
+        return Account.accountBelongsToUser(accounts, username, accId);
+    }
+
+    public void transfer(Transfer transfer, String accId, String username, String receiverAccountId, double amount) {
+        Account senderAccount = userHasAccount(username, accId);
+        if (senderAccount == null) {
+            System.out.println("Inavlid Sender Account ID");
+            return;
+        }
+        Account.transfer(transfer, accounts, receiverAccountId, senderAccount, amount);
+
+    }
+
+    public void listTransactions(String username, String accId) {
+        Account acc = null;
+        acc = userHasAccount(username, accId);
+        if (acc == null) {
+            System.out.println("Invalid account Id");
+            return;
+        }
+
+        acc.listTransactions();
     }
 }

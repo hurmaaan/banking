@@ -1,11 +1,12 @@
 import java.util.List;
+import java.util.ArrayList;
 
 public class Account {
     private User user;
     private double balance;
     private AccountType type;
     private String accountId = null;
-
+    private List<Transaction> transactions;
     private static int firstAccountId = 109;
 
     public Account(double balance, AccountType type, User user) {
@@ -13,6 +14,7 @@ public class Account {
         this.type = type;
         accountId = String.valueOf(firstAccountId++);
         this.user = user;
+        transactions = new ArrayList<>();
     }
 
     public Account(double balance, AccountType type, String accountId) {
@@ -67,5 +69,62 @@ public class Account {
             return;
         }
         new CmdCloseAccount().execute(new String[] { acc.accountId });
+    }
+
+    public static Account accountBelongsToUser(List<Account> accounts, String username, String accId) {
+        for (Account a : accounts) {
+            if (a.accountId.equals(accId) && a.user.toString().equals(username)) {
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public void deposit(Deposit deposit, Double amount) {
+        this.balance += amount;
+        transactions.add(deposit);
+        System.out.println("Deposit Successful!\n New Balance: " + balance);
+    }
+
+    public void withdraw(Withdrawal withdrawal, double amount) {
+        if (amount > balance) {
+            System.out.println("Not Enough Balance");
+            return;
+        }
+        balance -= amount;
+        transactions.add(withdrawal);
+        System.out.println("Withdrawal Accepted!\n New Balance: " + balance);
+    }
+
+    public static void transfer(Transfer transfer, List<Account> accounts, String receiverAccountId,
+            Account senderAccount,
+            double amount) {
+        Account receiverAccount = null;
+        for (Account a : accounts) {
+            if (a.accountId.equals(receiverAccountId)) {
+                receiverAccount = a;
+            }
+        }
+
+        if (receiverAccount == null) {
+            System.out.println("Invalid receiver account");
+            return;
+        }
+        if (senderAccount.balance < amount) {
+            System.out.println("Insufficient Balance");
+            return;
+        }
+        senderAccount.balance -= amount;
+        receiverAccount.balance += amount;
+        System.out.println("Transfer Successfull!");
+        senderAccount.transactions.add(transfer);
+        receiverAccount.transactions.add(new Transfer(amount, false, senderAccount.accountId));
+    }
+
+    public void listTransactions() {
+        printDetails();
+        for (Transaction t : transactions) {
+            System.out.println(t.toString());
+        }
     }
 }

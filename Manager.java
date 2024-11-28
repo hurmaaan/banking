@@ -100,8 +100,14 @@ public class Manager implements Role {
     }
 
     private void setInterestRates() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setInterestRates'");
+        System.out.println("This command cannot be undone!");
+        System.out.println("Set Interest Rates for Account Types:");
+        System.out.print("Enter interest rate for Savings Account (e.g., 0.03 for 3%): ");
+        String savingsRate = scanner.getNextLine();
+        System.out.print("Enter interest rate for Checking Account (e.g., 0.01 for 1%): ");
+        String checkingRate = scanner.getNextLine();
+        new CmdSetInterestRates().execute(new String[] { savingsRate, checkingRate });
+
     }
 
     @Override

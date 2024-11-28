@@ -7,7 +7,7 @@ public class CmdOpenAccount extends RecordedCommand {
     public void execute(String[] cmdParts) {
         // cmd parts are accountBalance,accountType, and username
         double balance = Double.parseDouble(cmdParts[0]);
-        AccountType type = cmdParts[1].equalsIgnoreCase("Savings") ? new Savings() : new Checking();
+        AccountType type = cmdParts[1].equalsIgnoreCase("Savings") ? Savings.getInstance() : Checking.getInstance();
         User user = UserDatabase.getInstance().findUser(cmdParts[2]);
         account = new Account(balance, type, user);
         Bank.getInstance().addAccount(account);
