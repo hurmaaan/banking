@@ -1,4 +1,4 @@
-package pkg;
+package banking;
 
 public class CmdSetInterestRates implements Command {
 

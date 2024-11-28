@@ -1,4 +1,4 @@
-package pkg;
+package banking;
 
 public class CmdRegisterUser extends RecordedCommand {
     User user;

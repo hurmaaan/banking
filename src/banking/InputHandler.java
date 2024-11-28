@@ -1,4 +1,4 @@
-package pkg;
+package banking;
 //to unify input operations so dont have to open and close scanner in each class
 
 import java.util.Scanner;

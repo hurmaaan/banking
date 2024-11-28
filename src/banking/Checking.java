@@ -1,4 +1,4 @@
-package pkg;
+package banking;
 
 public class Checking implements AccountType {
     private double interestRate;

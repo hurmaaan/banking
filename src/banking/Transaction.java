@@ -1,4 +1,4 @@
-package pkg;
+package banking;
 
 public abstract class Transaction implements Command {
     double amount;
