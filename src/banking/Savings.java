@@ -26,4 +26,17 @@ public class Savings implements AccountType {
     public String toString() {
         return "Savings";
     }
+
+    @Override
+    public double calculateMonthlyPayment(int termInMonths, double loanAmount) {
+        double monthlyInterestRate = interestRate / 12;
+
+        // Calculate monthly payment using the formula
+        double monthlyPayment = loanAmount *
+                (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, termInMonths)) /
+                (Math.pow(1 + monthlyInterestRate, termInMonths) - 1);
+
+        return monthlyPayment;
+    }
+
 }

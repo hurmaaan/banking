@@ -129,4 +129,8 @@ public class Account {
             System.out.println(t.toString());
         }
     }
+
+    public double calculateMonthlyPayment(int termInMonths, double loanAmount) {
+        return type.calculateMonthlyPayment(termInMonths, loanAmount);
+    }
 }

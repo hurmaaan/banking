@@ -67,8 +67,13 @@ public class Client implements Role {
     }
 
     private void applyForLoan() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'applyForLoan'");
+        System.out.print("Enter your account ID: ");
+        String accountId = scanner.getNextLine();
+        System.out.print("Enter loan amount: ");
+        String amount = scanner.getNextLine();
+        System.out.print("Enter loan term (in months): ");
+        String termInMonths = scanner.getNextLine();
+        new CmdApplyLoan().execute(new String[] { accountId, amount, termInMonths, username });
     }
 
     private void transfer() {
@@ -78,6 +83,10 @@ public class Client implements Role {
         String accId2 = scanner.getNextLine();
         System.out.print("Enter amount to transfer");
         String amount = scanner.getNextLine();
+        if (accId.equals(accId2)) {
+            System.out.println("Cannot transfer to the same account!");
+            return;
+        }
         new Transfer(Double.parseDouble(amount), true, accId2).execute(new String[] { username, accId });
     }
 

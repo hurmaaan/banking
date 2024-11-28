@@ -23,6 +23,18 @@ public class Checking implements AccountType {
     }
 
     @Override
+    public double calculateMonthlyPayment(int termInMonths, double loanAmount) {
+        double monthlyInterestRate = interestRate / 12;
+
+        // Calculate monthly payment using the formula
+        double monthlyPayment = loanAmount *
+                (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, termInMonths)) /
+                (Math.pow(1 + monthlyInterestRate, termInMonths) - 1);
+
+        return monthlyPayment;
+    }
+
+    @Override
     public String toString() {
         return "Checking";
     }
