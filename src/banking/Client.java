@@ -1,7 +1,7 @@
 package banking;
 
 public class Client implements Role {
-    String username;
+    private String username;
     private InputHandler scanner = InputHandler.getInstance();
 
     public Client(String username) {

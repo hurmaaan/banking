@@ -1,7 +1,7 @@
 package banking;
 
 public class CmdRemoveUser extends RecordedCommand {
-    User user;
+    private User user;
 
     @Override
     public void execute(String[] cmdParts) {

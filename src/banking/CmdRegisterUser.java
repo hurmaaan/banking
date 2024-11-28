@@ -1,7 +1,7 @@
 package banking;
 
 public class CmdRegisterUser extends RecordedCommand {
-    User user;
+    private User user;
 
     @Override
     public void execute(String[] cmdParts) {
