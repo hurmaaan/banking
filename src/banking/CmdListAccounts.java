@@ -1,3 +1,5 @@
+package pkg;
+
 public class CmdListAccounts implements Command {
 
     @Override

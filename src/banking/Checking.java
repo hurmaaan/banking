@@ -1,19 +1,22 @@
-public class Savings implements AccountType {
+package pkg;
 
+public class Checking implements AccountType {
     private double interestRate;
-    private static Savings instance = null;
+    private static Checking instance = null;
 
-    private Savings() {
+    private Checking() {
 
     }
 
-    public static Savings getInstance() {
+    public static Checking getInstance() {
         if (instance == null) {
-            instance = new Savings();
+            instance = new Checking();
 
         }
         return instance;
     }
+
+    @Override
 
     public void setInteresetRate(double interestRate) {
         this.interestRate = interestRate;
@@ -21,6 +24,6 @@ public class Savings implements AccountType {
 
     @Override
     public String toString() {
-        return "Savings";
+        return "Checking";
     }
 }

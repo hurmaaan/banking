@@ -1,4 +1,6 @@
-public abstract class Transaction {
+package pkg;
+
+public abstract class Transaction implements Command {
     double amount;
 
     public Transaction(double amount) {

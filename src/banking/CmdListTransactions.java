@@ -1,3 +1,5 @@
+package pkg;
+
 public class CmdListTransactions implements Command {
 
     @Override

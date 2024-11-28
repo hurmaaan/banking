@@ -1,3 +1,5 @@
+package pkg;
+
 public class CmdSetInterestRates implements Command {
 
     @Override

@@ -1,4 +1,6 @@
-public class Withdrawal extends Transaction implements Command {
+package pkg;
+
+public class Withdrawal extends Transaction {
 
     public Withdrawal(double amount) {
         super(amount);

@@ -1,3 +1,5 @@
+package pkg;
+
 import java.util.ArrayList;
 
 public abstract class RecordedCommand implements Command {

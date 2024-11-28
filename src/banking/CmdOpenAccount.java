@@ -1,3 +1,4 @@
+package pkg;
 
 public class CmdOpenAccount extends RecordedCommand {
 

@@ -1,4 +1,6 @@
-public class Transfer extends Transaction implements Command {
+package pkg;
+
+public class Transfer extends Transaction {
     private String otherAccountId;
     private boolean isSender;
 

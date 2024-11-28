@@ -1,3 +1,5 @@
+package pkg;
+
 public class CmdRemoveUser extends RecordedCommand {
     User user;
 

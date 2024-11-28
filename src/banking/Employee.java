@@ -1,3 +1,4 @@
+package banking;
 
 public class Employee implements Role {
     private InputHandler scanner = InputHandler.getInstance();

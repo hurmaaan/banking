@@ -1,3 +1,5 @@
+package pkg;
+
 public class CmdRegisterUser extends RecordedCommand {
     User user;
 

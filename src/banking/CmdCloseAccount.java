@@ -1,3 +1,5 @@
+package pkg;
+
 public class CmdCloseAccount extends RecordedCommand {
 
     Account account;
