@@ -44,6 +44,7 @@ public class Client implements Role {
                     break;
                 case 7:
                     listTransactions();
+                    break;
                 case 8:
                     System.out.println("Logging out...");
                     return;
