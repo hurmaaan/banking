@@ -7,8 +7,7 @@ public class Loans {
 
     private static Loans instance = null;
     private List<LoanApplication> pendingLoanApplications;
-    private List<LoanApplication> approvedLoanApplications;
-    private List<LoanApplication> rejectedLoanApplications;
+    private List<LoanApplication> processedLoanApplications;
 
     public void createLoanApplication(Account acc, int termInMonths, double initialAmount) {
 
@@ -32,8 +31,7 @@ public class Loans {
 
     private Loans() {
         pendingLoanApplications = new ArrayList<>();
-        approvedLoanApplications = new ArrayList<>();
-        rejectedLoanApplications = new ArrayList<>();
+        processedLoanApplications = new ArrayList<>();
     }
 
     public static Loans getInstance() {
@@ -49,7 +47,7 @@ public class Loans {
             return false;
         }
         pendingLoanApplications.remove(app);
-        approvedLoanApplications.add(app);
+        processedLoanApplications.add(app);
         app.approveLoan();
         return true;
     }
@@ -60,7 +58,7 @@ public class Loans {
             return false;
         }
         pendingLoanApplications.remove(app);
-        rejectedLoanApplications.add(app);
+        processedLoanApplications.add(app);
         app.rejectLoan();
         return true;
     }
@@ -72,6 +70,16 @@ public class Loans {
             }
         }
         return null;
+    }
+
+    public void repayLoan(RepayLoan repayLoan, String loanId, String username, double amount) {
+        for (LoanApplication app : processedLoanApplications) {
+            if (app.toString().equals(loanId)) {
+                app.repayLoan(repayLoan, username, amount);
+                return;
+            }
+        }
+        System.out.println("Either loan Id is invalid or loan has not been approved yet.");
     }
 
 }

@@ -133,4 +133,21 @@ public class Account {
     public double calculateMonthlyPayment(int termInMonths, double loanAmount) {
         return type.calculateMonthlyPayment(termInMonths, loanAmount);
     }
+
+    public double repayLoan(RepayLoan repayLoan, double amount, double outstandingBalance) {
+        if (amount > balance) {
+            System.out.println("Insufficient Balance.");
+            return 0;
+        }
+
+        balance -= amount;
+        transactions.add(repayLoan);
+        System.out.println("Repayment Made!");
+        if (amount > outstandingBalance) {
+            balance += amount - outstandingBalance; // add the difference when client repays more than loanamount
+            transactions.add(new LoanRepaymentAdjustment(amount));
+        }
+        return amount;
+
+    }
 }

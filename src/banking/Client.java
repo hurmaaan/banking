@@ -17,7 +17,7 @@ public class Client implements Role {
             System.out.println("3. Withdraw");
             System.out.println("4. Transfer");
             System.out.println("5. Apply for Loan");
-            System.out.println("6. Repay Loan");
+            System.out.println("6. Make Monthly Loan Payment");
             System.out.println("7. List transaction history");
             System.out.println("8. Logout");
             System.out.print("Choose an option: ");
@@ -62,8 +62,11 @@ public class Client implements Role {
     }
 
     private void repayLoan() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'repayLoan'");
+        System.out.print("Enter Loan Id: ");
+        String loanId = scanner.getNextLine();
+        System.out.print("Enter amount to repay: ");
+        Double amount = scanner.getNextDouble();
+        new RepayLoan(amount).execute(new String[] { loanId, username });
     }
 
     private void applyForLoan() {

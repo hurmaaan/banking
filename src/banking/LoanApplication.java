@@ -3,7 +3,6 @@ package banking;
 import java.util.List;
 
 public class LoanApplication {
-    private int termInMonths;
     private Account account;
     private double outstandingBalance;
     private double monthlyPayment;
@@ -11,25 +10,16 @@ public class LoanApplication {
     private static double LoanId = 2;
     private LoanStatus status;
 
-    public LoanApplication(Account account, int termInMonths, double loanAmount) {
+    public LoanApplication(Account account, double loanAmount) {
         this.account = account;
-        this.termInMonths = termInMonths;
         this.outstandingBalance = loanAmount;
-        this.status = new LoanPending();
+        this.status = LoanPending.getInstance();
         this.loanId = String.valueOf(LoanId++);
 
     }
 
-    public void repayLoan(double amount) {
-
-        outstandingBalance -= amount;
-        if (outstandingBalance <= 0) {
-            status = new LoanPaid();
-        }
-    }
-
     public void approveLoan() {
-        this.status = new LoanApproved();
+        this.status = LoanApproved.getInstance();
     }
 
     public static LoanApplication createLoanApplication(List<LoanApplication> loanApplications, Account acc,
@@ -40,9 +30,11 @@ public class LoanApplication {
                 return null;
             }
         }
-        System.out.println("Applied Successfuly for a loan.");
-        LoanApplication newApp = new LoanApplication(acc, termInMonths, initialAmount);
+        LoanApplication newApp = new LoanApplication(acc, initialAmount);
         newApp.monthlyPayment = acc.calculateMonthlyPayment(termInMonths, initialAmount);
+        System.out.println("Applied Successfuly for a loan.\n Monthly Payment: " + newApp.monthlyPayment + "\nLoan ID: "
+                + newApp.loanId);
+
         return newApp;
     }
 
@@ -60,7 +52,31 @@ public class LoanApplication {
     }
 
     public void rejectLoan() {
-        status = new LoanRejected();
+        status = LoanRejected.getInstance();
+    }
+
+    public void repayLoan(RepayLoan repayLoan, String username, double amount) {
+        String accountId = account.toString();
+        // makes sure a user can only repay his/her loans
+        Account account = Bank.getInstance().userHasAccount(username, accountId);
+        if (account == null) {
+            System.out.println("Invalid loan id");
+            return;
+        }
+
+        if (!status.canRepay()) {
+            return;
+        }
+
+        if (amount < monthlyPayment) {
+            System.out.println("Amount cannot be less than monthly payment");
+            return;
+        }
+        outstandingBalance -= account.repayLoan(repayLoan, amount, outstandingBalance);
+        if (outstandingBalance <= 0) {
+            status = LoanPaid.getInstance();
+            System.out.println("Loan Fully Repaid!");
+        }
     }
 
 }
