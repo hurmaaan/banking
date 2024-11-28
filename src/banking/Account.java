@@ -85,7 +85,7 @@ public class Account {
     public void deposit(Deposit deposit, Double amount) {
         this.balance += amount;
         transactions.add(deposit);
-        System.out.println("Deposit Successful!\n New Balance: " + balance);
+        System.out.println("Deposit Successful!\nNew Balance: " + balance);
     }
 
     public void withdraw(Withdrawal withdrawal, double amount) {
@@ -95,7 +95,7 @@ public class Account {
         }
         balance -= amount;
         transactions.add(withdrawal);
-        System.out.println("Withdrawal Accepted!\n New Balance: " + balance);
+        System.out.println("Withdrawal Accepted!\nNew Balance: " + balance);
     }
 
     public static void transfer(Transfer transfer, List<Account> accounts, String receiverAccountId,
