@@ -22,17 +22,13 @@ class AccountTest {
     private Savings savings = Savings.getInstance();
     private Checking checking = Checking.getInstance();
 
-    @Test
-    void test1() {
-    	assertEquals(1, 1);
-    }
     @BeforeEach
     void setUp() throws Exception {
     	setOutput();
     	Client client1 = new Client("user1");
     	Client client2 = new Client("user2");
         user1 = new User("user1", "pwd1", client1);
-        user2 = new User("user1", "pwd1", client2);
+        user2 = new User("user2", "pwd2", client2);
         account1 = new Account(1000.0, savings, user1); // id = 109
         account2 = new Account(2000.0, checking, user2); // id = 110
     }
@@ -218,25 +214,6 @@ class AccountTest {
         assertEquals("Insufficient Balance", lines[0]);
         assertEquals("Balance: 1000.0", lines[2]);
     }
-//
-//    @Test
-//    void testListTransactions() {
-//        Account account = new Account(300.0, new Checking(), mockUser);
-//        account.deposit(mockDeposit, 50.0);
-//        account.withdraw(mockWithdrawal, 100.0);
-//
-//        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-//        System.setOut(new PrintStream(outContent));
-//        account.listTransactions();
-//
-//        String output = outContent.toString();
-//        assertTrue(output.contains("Account ID:"));
-//        assertTrue(output.contains("Balance:"));
-//        assertTrue(output.contains(mockDeposit.toString()));
-//        assertTrue(output.contains(mockWithdrawal.toString()));
-//        System.setOut(System.out); // Reset the standard output
-//    }
-    
     
     /**************************************
 	 * Note: The following is to handle output reading

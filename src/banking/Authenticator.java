@@ -13,6 +13,7 @@ public class Authenticator {
         String username = scanner.getNextLine();
         System.out.print("Enter password: ");
         String password = scanner.getNextLine();
+        System.out.println("HERE START");  // Debug line
         User user = userDatabase.findUser(username);
         if (user != null) {
             if (user.isPasswordCorrect(password)) {

@@ -10,6 +10,7 @@ public class Client implements Role {
 
     @Override
     public void displayMenu() {
+    	System.out.println("IN MENU");
         while (true) {
             System.out.println("\n--- Client Menu ---");
             System.out.println("1. View Account Details");
@@ -25,6 +26,7 @@ public class Client implements Role {
             scanner.getNextLine();
             switch (choice) {
                 case 1:
+                	System.out.println("CHOSE 1");
                     viewAccountDetails();
                     break;
                 case 2:
@@ -54,23 +56,23 @@ public class Client implements Role {
 
     }
 
-    private void listTransactions() {
+    public void listTransactions() {
         System.out.print("Enter your accountId");
         String accId = scanner.getNextLine();
         new CmdListTransactions().execute(new String[] { username, accId });
     }
 
-    private void repayLoan() {
+    public void repayLoan() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'repayLoan'");
     }
 
-    private void applyForLoan() {
+    public void applyForLoan() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'applyForLoan'");
     }
 
-    private void transfer() {
+    public void transfer() {
         System.out.print("Enter your account number: ");
         String accId = scanner.getNextLine();
         System.out.print("Enter other account number: ");
@@ -80,7 +82,7 @@ public class Client implements Role {
         new Transfer(Double.parseDouble(amount), true, accId2).execute(new String[] { username, accId });
     }
 
-    private void withdraw() {
+    public void withdraw() {
         System.out.print("Enter your account number: ");
         String accId = scanner.getNextLine();
         System.out.print("Enter amount to withdraw");
@@ -89,7 +91,7 @@ public class Client implements Role {
 
     }
 
-    private void deposit() {
+    public void deposit() {
         System.out.print("Enter your account number: ");
         String accId = scanner.getNextLine();
         System.out.print("Enter amount to deposit");
@@ -98,7 +100,7 @@ public class Client implements Role {
 
     }
 
-    private void viewAccountDetails() {
+    public void viewAccountDetails() {
         new CmdListAccounts().execute(new String[] { username });
 
     }
