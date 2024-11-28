@@ -6,23 +6,34 @@ import java.util.List;
 public class Loans {
 
     private static Loans instance = null;
-    private List<LoanApplication> loanApplications;
+    private List<LoanApplication> pendingLoanApplications;
+    private List<LoanApplication> approvedLoanApplications;
+    private List<LoanApplication> rejectedLoanApplications;
 
     public void createLoanApplication(Account acc, int termInMonths, double initialAmount) {
 
         // check if that account already has an outstanding loan
-        LoanApplication loanApplication = LoanApplication.createLoanApplication(loanApplications, acc, termInMonths,
+        LoanApplication loanApplication = LoanApplication.createLoanApplication(pendingLoanApplications, acc,
+                termInMonths,
                 initialAmount);
 
         if (loanApplication != null) {
-            loanApplications.add(loanApplication);
+            pendingLoanApplications.add(loanApplication);
 
         }
 
     }
 
+    public void listPendingLoans() {
+
+        LoanApplication.listPendingLoans(pendingLoanApplications);
+
+    }
+
     private Loans() {
-        loanApplications = new ArrayList<>();
+        pendingLoanApplications = new ArrayList<>();
+        approvedLoanApplications = new ArrayList<>();
+        rejectedLoanApplications = new ArrayList<>();
     }
 
     public static Loans getInstance() {
@@ -30,6 +41,37 @@ public class Loans {
             instance = new Loans();
         }
         return instance;
+    }
+
+    public boolean approveLoan(String loanId) {
+        LoanApplication app = isLoanPending(loanId);
+        if (app == null) {
+            return false;
+        }
+        pendingLoanApplications.remove(app);
+        approvedLoanApplications.add(app);
+        app.approveLoan();
+        return true;
+    }
+
+    public boolean rejectLoan(String loanId) {
+        LoanApplication app = isLoanPending(loanId);
+        if (app == null) {
+            return false;
+        }
+        pendingLoanApplications.remove(app);
+        rejectedLoanApplications.add(app);
+        app.rejectLoan();
+        return true;
+    }
+
+    private LoanApplication isLoanPending(String loanId) {
+        for (LoanApplication app : pendingLoanApplications) {
+            if (loanId.equals(app.toString())) {
+                return app;
+            }
+        }
+        return null;
     }
 
 }

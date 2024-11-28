@@ -7,7 +7,8 @@ public class LoanApplication {
     private Account account;
     private double outstandingBalance;
     private double monthlyPayment;
-
+    private String loanId;
+    private static double LoanId = 2;
     private LoanStatus status;
 
     public LoanApplication(Account account, int termInMonths, double loanAmount) {
@@ -15,6 +16,7 @@ public class LoanApplication {
         this.termInMonths = termInMonths;
         this.outstandingBalance = loanAmount;
         this.status = new LoanPending();
+        this.loanId = String.valueOf(LoanId++);
 
     }
 
@@ -33,8 +35,8 @@ public class LoanApplication {
     public static LoanApplication createLoanApplication(List<LoanApplication> loanApplications, Account acc,
             int termInMonths, double initialAmount) {
         for (LoanApplication loan : loanApplications) {
-            if (loan.outstandingBalance > 0 && acc.toString().equals(loan.account.toString())) {
-                System.out.println("This account already has an outstanding loan. Cannot Apply For a new Loan. ");
+            if (acc.toString().equals(loan.account.toString())) {
+                System.out.println("This account already has a pending loan. Cannot Apply For a new Loan.");
                 return null;
             }
         }
@@ -42,6 +44,23 @@ public class LoanApplication {
         LoanApplication newApp = new LoanApplication(acc, termInMonths, initialAmount);
         newApp.monthlyPayment = acc.calculateMonthlyPayment(termInMonths, initialAmount);
         return newApp;
+    }
+
+    public static void listPendingLoans(List<LoanApplication> pendingLoanApplications) {
+        System.out.println("--- Pending Loan Applications ---");
+        for (LoanApplication loan : pendingLoanApplications) {
+            System.out.println("Loan ID: " + loan.loanId + ", Account ID: " + loan.account.toString() +
+                    ", Amount: " + loan.outstandingBalance);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return loanId;
+    }
+
+    public void rejectLoan() {
+        status = new LoanRejected();
     }
 
 }

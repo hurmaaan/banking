@@ -95,13 +95,29 @@ public class Employee implements Role {
     }
 
     private void processLoanApplication() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'processLoanApplication'");
+        System.out.print("WARNING!!! This action cannot be undone!\nEnter loan application ID: ");
+        String loanId = scanner.getNextLine();
+
+        System.out.println("1. Approve Loan");
+        System.out.println("2. Reject Loan");
+        System.out.print("Choose an option: ");
+        int choice = scanner.getNextInt();
+        scanner.getNextLine();
+        switch (choice) {
+            case 1:
+                new CmdApproveLoan().execute(new String[] { loanId });
+                break;
+            case 2:
+
+                new CmdRejectLoan().execute(new String[] { loanId });
+                break;
+            default:
+                System.out.println("Invalid option.");
+        }
     }
 
     private void listPendingLoans() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listPendingLoans'");
+        new CmdListPendingLoans().execute(null);
     }
 
     private void closeAccount() {
