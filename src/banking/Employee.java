@@ -56,7 +56,7 @@ public class Employee implements Role {
         }
     }
 
-    private void registerClient() {
+    public void registerClient() {
         System.out.print("Enter new username:");
         String username = scanner.getNextLine();
         User u = UserDatabase.getInstance().findUser(username);
@@ -82,7 +82,7 @@ public class Employee implements Role {
 
     }
 
-    private void listAllAccounts() {
+    public void listAllAccounts() {
         System.out.print("Enter username:");
         String username = scanner.getNextLine();
         UserDatabase.getInstance().findUser(username);
@@ -94,30 +94,30 @@ public class Employee implements Role {
 
     }
 
-    private void processLoanApplication() {
+    public void processLoanApplication() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'processLoanApplication'");
     }
 
-    private void listPendingLoans() {
+    public void listPendingLoans() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'listPendingLoans'");
     }
 
-    private void closeAccount() {
+    public void closeAccount() {
         System.out.print("Enter Account Id to close:");
 
         String accountId = scanner.getNextLine();
         Bank.getInstance().closeAccount(accountId);
     }
 
-    private void openAccount() {
+    public void openAccount() {
 
-        System.out.print("Enter user ID for the account: ");
+        System.out.println("Enter user ID for the account: ");
         String username = scanner.getNextLine();
-        System.out.print("Enter initial deposit amount: ");
+        System.out.println("Enter initial deposit amount: ");
         String initialDeposit = scanner.getNextLine();
-        System.out.print("Enter account type (Savings/Checking): ");
+        System.out.println("Enter account type (Savings/Checking): ");
         String type = scanner.getNextLine();
 
         User user = UserDatabase.getInstance().findUser(username);
