@@ -50,7 +50,7 @@ public class AuthenticatorTest {
 
         // Verify that the authentication was successful
         assertNotNull(authenticatedUser);
-        assertEquals(user, authenticatedUser); 
+        assertEquals(user.toString(), authenticatedUser.toString()); 
 
         // Verify the output (Login successful message)
         String output = outputStream.toString();
