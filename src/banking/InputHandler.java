@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class InputHandler {
 
     private static InputHandler instance;
-    Scanner scanner;
+    private final Scanner scanner;
 
     private InputHandler() {
         scanner = new Scanner(System.in);

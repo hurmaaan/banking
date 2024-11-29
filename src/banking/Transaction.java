@@ -1,7 +1,7 @@
 package banking;
 
 public abstract class Transaction implements Command {
-    double amount;
+    private double amount;
 
     public Transaction(double amount) {
         this.amount = amount;

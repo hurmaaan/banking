@@ -2,7 +2,7 @@ package banking;
 
 public class CmdCloseAccount extends RecordedCommand {
 
-    Account account;
+    private Account account;
 
     @Override
     public void execute(String[] cmdParts) {

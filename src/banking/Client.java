@@ -1,7 +1,7 @@
 package banking;
 
 public class Client implements Role {
-    String username;
+    private String username;
     private InputHandler scanner = InputHandler.getInstance();
 
     public Client(String username) {
@@ -18,7 +18,7 @@ public class Client implements Role {
             System.out.println("3. Withdraw");
             System.out.println("4. Transfer");
             System.out.println("5. Apply for Loan");
-            System.out.println("6. Repay Loan");
+            System.out.println("6. Make Monthly Loan Payment");
             System.out.println("7. List transaction history");
             System.out.println("8. Logout");
             System.out.print("Choose an option: ");
@@ -46,6 +46,7 @@ public class Client implements Role {
                     break;
                 case 7:
                     listTransactions();
+                    break;
                 case 8:
                     System.out.println("Logging out...");
                     return;
@@ -62,14 +63,22 @@ public class Client implements Role {
         new CmdListTransactions().execute(new String[] { username, accId });
     }
 
-    public void repayLoan() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'repayLoan'");
+    private void repayLoan() {
+        System.out.print("Enter Loan Id: ");
+        String loanId = scanner.getNextLine();
+        System.out.print("Enter amount to repay: ");
+        Double amount = scanner.getNextDouble();
+        new RepayLoan(amount).execute(new String[] { loanId, username });
     }
 
-    public void applyForLoan() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'applyForLoan'");
+    private void applyForLoan() {
+        System.out.print("Enter your account ID: ");
+        String accountId = scanner.getNextLine();
+        System.out.print("Enter loan amount: ");
+        String amount = scanner.getNextLine();
+        System.out.print("Enter loan term (in months): ");
+        String termInMonths = scanner.getNextLine();
+        new CmdApplyLoan().execute(new String[] { accountId, amount, termInMonths, username });
     }
 
     public void transfer() {
@@ -79,6 +88,10 @@ public class Client implements Role {
         String accId2 = scanner.getNextLine();
         System.out.print("Enter amount to transfer");
         String amount = scanner.getNextLine();
+        if (accId.equals(accId2)) {
+            System.out.println("Cannot transfer to the same account!");
+            return;
+        }
         new Transfer(Double.parseDouble(amount), true, accId2).execute(new String[] { username, accId });
     }
 
