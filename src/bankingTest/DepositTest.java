@@ -39,7 +39,7 @@ public class DepositTest {
         String[] lines = output.split("\n");
       
         assertEquals("Deposit Successful!", lines[0]);
-        assertEquals(" New Balance: " + 200.0, lines[1]);
+        assertEquals("New Balance: " + 200.0, lines[1]);
     }
     
     @Test

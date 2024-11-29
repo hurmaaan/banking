@@ -26,7 +26,6 @@ public class Client implements Role {
             scanner.getNextLine();
             switch (choice) {
                 case 1:
-                	System.out.println("CHOSE 1");
                     viewAccountDetails();
                     break;
                 case 2:

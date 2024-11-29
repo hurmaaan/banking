@@ -36,5 +36,10 @@ public class InputHandler {
             scanner.close();
         }
     }
+    
+    // Temporary method for testing
+    public static void resetInstance() {
+    	instance = null;
+    }
 
 }
