@@ -1,12 +1,11 @@
 package banking;
-//to unify input operations so dont have to open and close scanner in each class
 
 import java.util.Scanner;
 
 public class InputHandler {
 
     private static InputHandler instance;
-    private final Scanner scanner;
+    private Scanner scanner;
 
     private InputHandler() {
         scanner = new Scanner(System.in);
@@ -23,18 +22,27 @@ public class InputHandler {
         return scanner.nextLine();
     }
 
-    public double getNextDouble() {
-        return scanner.nextDouble();
-    }
-
     public int getNextInt() {
         return scanner.nextInt();
     }
 
+    public double getNextDouble() {
+        return scanner.nextDouble();
+    }
+
     public void close() {
-        if (instance != null) {
+        if (scanner != null) {
             scanner.close();
         }
     }
 
+    // Add a method to set a custom Scanner (for testing purposes)
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    // Add a method to reset the singleton (for testing purposes)
+    public static void resetInstance() {
+        instance = null;
+    }
 }

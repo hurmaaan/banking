@@ -57,7 +57,7 @@ public class Employee implements Role {
     }
 
     public void registerClient() {
-        System.out.print("Enter new username:");
+        System.out.println("Enter new username:");
         String username = scanner.getNextLine();
         User u = UserDatabase.getInstance().findUser(username);
         if (u != null) {
@@ -65,11 +65,11 @@ public class Employee implements Role {
             return;
         }
         boolean passwordMatching = false;
-        String password1 = "", password2;
+        String password1 = "", password2="";
         while (!passwordMatching) {
-            System.out.print("Enter Password");
+            System.out.println("Enter Password");
             password1 = scanner.getNextLine();
-            System.out.print("Re-enter Password");
+            System.out.println("Re-enter Password");
             password2 = scanner.getNextLine();
             if (!password1.equals(password2)) {
                 System.out.println("Passwords do not match. Try again.");
@@ -83,7 +83,7 @@ public class Employee implements Role {
     }
 
     public void listAllAccounts() {
-        System.out.print("Enter username:");
+        System.out.println("Enter username:");
         String username = scanner.getNextLine();
         UserDatabase.getInstance().findUser(username);
         if (username == null) {
@@ -121,7 +121,7 @@ public class Employee implements Role {
     }
 
     public void closeAccount() {
-        System.out.print("Enter Account Id to close:");
+        System.out.println("Enter Account Id to close:");
 
         String accountId = scanner.getNextLine();
         Bank.getInstance().closeAccount(accountId);
