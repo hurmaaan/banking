@@ -141,9 +141,18 @@ public class Employee implements Role {
             System.out.println("User does not exist!");
             return;
         }
-        // user.openAccount(initialDeposit, type);
-        String[] cmdParts = new String[] { initialDeposit, type, username };
-        new CmdOpenAccount().execute(cmdParts);
+        try {
+            if (Double.parseDouble(initialDeposit) <= 0) {
+                System.out.println("Invalid amount entered.\n Aborting Transaction...");
+                return;
+            }
+            String[] cmdParts = new String[] { initialDeposit, type, username };
+            new CmdOpenAccount().execute(cmdParts);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid amount entered.");
+
+        }
 
     }
 

@@ -1,7 +1,7 @@
 package banking;
 
 public class Checking implements AccountType {
-    private double interestRate;
+    private double interestRate = 0.2;
     private static Checking instance = null;
 
     private Checking() {
