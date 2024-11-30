@@ -7,7 +7,7 @@ public class LoanApplication {
     private double outstandingBalance;
     private double monthlyPayment;
     private String loanId;
-    private static double LoanId = 2;
+    private static int LoanId = 2;
     private LoanStatus status;
 
     public LoanApplication(Account account, double loanAmount) {

@@ -56,8 +56,8 @@ public class Employee implements Role {
         }
     }
 
-    public void registerClient() {
-        System.out.println("Enter new username:");
+    private void registerClient() {
+        System.out.print("Enter new username:");
         String username = scanner.getNextLine();
         User u = UserDatabase.getInstance().findUser(username);
         if (u != null) {
@@ -65,11 +65,11 @@ public class Employee implements Role {
             return;
         }
         boolean passwordMatching = false;
-        String password1 = "", password2="";
+        String password1 = "", password2;
         while (!passwordMatching) {
-            System.out.println("Enter Password");
+            System.out.print("Enter Password");
             password1 = scanner.getNextLine();
-            System.out.println("Re-enter Password");
+            System.out.print("Re-enter Password");
             password2 = scanner.getNextLine();
             if (!password1.equals(password2)) {
                 System.out.println("Passwords do not match. Try again.");
@@ -82,8 +82,8 @@ public class Employee implements Role {
 
     }
 
-    public void listAllAccounts() {
-        System.out.println("Enter username:");
+    private void listAllAccounts() {
+        System.out.print("Enter username:");
         String username = scanner.getNextLine();
         UserDatabase.getInstance().findUser(username);
         if (username == null) {
@@ -94,7 +94,7 @@ public class Employee implements Role {
 
     }
 
-    public void processLoanApplication() {
+    private void processLoanApplication() {
         System.out.print("WARNING!!! This action cannot be undone!\nEnter loan application ID: ");
         String loanId = scanner.getNextLine();
 
@@ -116,24 +116,24 @@ public class Employee implements Role {
         }
     }
 
-    public void listPendingLoans() {
+    private void listPendingLoans() {
         new CmdListPendingLoans().execute(null);
     }
 
-    public void closeAccount() {
-        System.out.println("Enter Account Id to close:");
+    private void closeAccount() {
+        System.out.print("Enter Account Id to close:");
 
         String accountId = scanner.getNextLine();
         Bank.getInstance().closeAccount(accountId);
     }
 
-    public void openAccount() {
+    private void openAccount() {
 
-        System.out.println("Enter user ID for the account: ");
+        System.out.print("Enter user ID for the account: ");
         String username = scanner.getNextLine();
-        System.out.println("Enter initial deposit amount: ");
+        System.out.print("Enter initial deposit amount: ");
         String initialDeposit = scanner.getNextLine();
-        System.out.println("Enter account type (Savings/Checking): ");
+        System.out.print("Enter account type (Savings/Checking): ");
         String type = scanner.getNextLine();
 
         User user = UserDatabase.getInstance().findUser(username);
@@ -141,9 +141,18 @@ public class Employee implements Role {
             System.out.println("User does not exist!");
             return;
         }
-        // user.openAccount(initialDeposit, type);
-        String[] cmdParts = new String[] { initialDeposit, type, username };
-        new CmdOpenAccount().execute(cmdParts);
+        try {
+            if (Double.parseDouble(initialDeposit) <= 0) {
+                System.out.println("Invalid amount entered.\n Aborting Transaction...");
+                return;
+            }
+            String[] cmdParts = new String[] { initialDeposit, type, username };
+            new CmdOpenAccount().execute(cmdParts);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid amount entered.");
+
+        }
 
     }
 

@@ -65,8 +65,17 @@ public class Client implements Role {
         System.out.print("Enter Loan Id: ");
         String loanId = scanner.getNextLine();
         System.out.print("Enter amount to repay: ");
-        Double amount = scanner.getNextDouble();
-        new RepayLoan(amount).execute(new String[] { loanId, username });
+        try {
+
+            Double amount = Double.parseDouble(scanner.getNextLine());
+            if (amount <= 0) {
+                System.out.println("Invalid amount entered.\n Aborting Transaction...");
+            }
+            new RepayLoan(amount).execute(new String[] { loanId, username });
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid amount entered.");
+
+        }
     }
 
     private void applyForLoan() {
@@ -76,21 +85,44 @@ public class Client implements Role {
         String amount = scanner.getNextLine();
         System.out.print("Enter loan term (in months): ");
         String termInMonths = scanner.getNextLine();
-        new CmdApplyLoan().execute(new String[] { accountId, amount, termInMonths, username });
+        try {
+
+            if (Double.parseDouble(amount) <= 0 || Double.parseDouble(termInMonths) <= 0) {
+                System.out.println("Invalid value(s) entered.\n Aborting Transaction...");
+                return;
+            }
+            new CmdApplyLoan().execute(new String[] { accountId, amount, termInMonths, username });
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid amount entered.");
+
+        }
     }
 
     private void transfer() {
-        System.out.print("Enter your account number: ");
-        String accId = scanner.getNextLine();
-        System.out.print("Enter other account number: ");
-        String accId2 = scanner.getNextLine();
-        System.out.print("Enter amount to transfer");
-        String amount = scanner.getNextLine();
-        if (accId.equals(accId2)) {
-            System.out.println("Cannot transfer to the same account!");
-            return;
+        try {
+
+            System.out.print("Enter your account number: ");
+            String accId = scanner.getNextLine();
+            System.out.print("Enter other account number: ");
+            String accId2 = scanner.getNextLine();
+            if (accId.equals(accId2)) {
+                System.out.println("Cannot transfer to the same account!");
+                return;
+            }
+            System.out.print("Enter amount to transfer:");
+
+            String amount = scanner.getNextLine();
+            if (Double.parseDouble(amount) <= 0) {
+                System.out.println("Invalid amount entered.\n Aborting Transaction...");
+                return;
+            }
+            new Transfer(Double.parseDouble(amount), true, accId2).execute(new String[] { username, accId });
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid amount entered.");
         }
-        new Transfer(Double.parseDouble(amount), true, accId2).execute(new String[] { username, accId });
+
     }
 
     private void withdraw() {
@@ -98,7 +130,16 @@ public class Client implements Role {
         String accId = scanner.getNextLine();
         System.out.print("Enter amount to withdraw");
         String amount = scanner.getNextLine();
-        new Withdrawal(Double.parseDouble(amount)).execute(new String[] { accId, username });
+        try {
+            if (Double.parseDouble(amount) <= 0) {
+                System.out.println("Invalid amount entered.\n Aborting Transaction...");
+                return;
+            }
+            new Withdrawal(Double.parseDouble(amount)).execute(new String[] { accId, username });
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid amount entered.");
+        }
 
     }
 
@@ -107,7 +148,16 @@ public class Client implements Role {
         String accId = scanner.getNextLine();
         System.out.print("Enter amount to deposit");
         String amount = scanner.getNextLine();
-        new Deposit(Double.parseDouble(amount)).execute(new String[] { accId, username });
+        try {
+            if (Double.parseDouble(amount) <= 0) {
+                System.out.println("Invalid amount entered.\n Aborting Transaction...");
+                return;
+            }
+            new Deposit(Double.parseDouble(amount)).execute(new String[] { accId, username });
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid amount entered.");
+        }
 
     }
 

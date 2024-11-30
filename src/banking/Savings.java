@@ -2,7 +2,7 @@ package banking;
 
 public class Savings implements AccountType {
 
-    private double interestRate;
+    private double interestRate = 0.1;
     private static Savings instance = null;
 
     private Savings() {
