@@ -20,28 +20,24 @@ public class Account {
     }
 
     public static void listAccounts(List<Account> accounts, User user) {
-        boolean accountsExist = false;
-        for (Account acc : accounts) {
-            if (user == acc.user) {
-                accountsExist = true;
-                acc.printDetails();
+        if (userHasAccounts(accounts, user)) {
+            for (Account acc : accounts) {
+                if (user == acc.user) {
+                    acc.printDetails();
+                }
             }
-        }
-
-        if (!accountsExist) {
+        } else {
             System.out.println("This user has no accounts");
         }
     }
 
     public static boolean userHasAccounts(List<Account> accounts, User user) {
-        boolean accountsExist = false;
         for (Account acc : accounts) {
             if (user == acc.user) {
-                accountsExist = true;
-                break;
+                return true;
             }
         }
-        return accountsExist;
+        return false;
     }
 
     public void printDetails() {

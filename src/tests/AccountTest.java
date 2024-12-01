@@ -95,6 +95,36 @@ class AccountTest {
 		assertSame(null, Account.accountBelongsToUser(accounts, testUser.toString(),"120"));
 		
 	}
+	
+	@Test 
+	void testListAccounts() {
+		ArrayList<Account> accounts = new ArrayList<>();
+		accounts.add(acc);
+		User testUser = new User("test", "test", new Client("test"));
+		Account a = new Account(5,Savings.getInstance(),testUser);
+		accounts.add(a);
+		Account.listAccounts(accounts, user);
+		String[] output = getOutput().split("\n");
+		assertEquals("Account ID: 109", output[0].trim());
+		assertEquals("Balance: 300.0", output[1].trim());
+		assertEquals("Type: Savings", output[2].trim());
+		assertEquals("------", output[3].trim());
+		
+		
+	}
+	
+	@Test
+	void testListAccountsNoAccount() {
+		ArrayList<Account> accounts = new ArrayList<>();
+		accounts.add(acc);
+		User testUser = new User("test", "test", new Client("test"));
+
+		Account.listAccounts(accounts, testUser);
+		String output = getOutput();
+		
+		assertEquals("This user has no accounts",output.trim());
+		
+	}
 
 	@Test
 	void testToString() {
