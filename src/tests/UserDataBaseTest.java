@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import banking.Client;
 import banking.Employee;
 import banking.Manager;
+import banking.Savings;
 import banking.User;
 import banking.UserDatabase;
 
@@ -26,12 +27,18 @@ class UserDataBaseTest {
 		assertDoesNotThrow(() -> database.addUser(user3));
 
 	}
+	@Test
+	void testSingletonInstance() {
+		UserDatabase database = UserDatabase.getInstance();
+		UserDatabase anotherInstance = UserDatabase.getInstance();
+		assertSame(database, anotherInstance);
+	}
 
 	@Test
 	void testFindUser() {
 		UserDatabase database = UserDatabase.getInstance();
 		database.addUser(user1);
-		assertEquals(user1, database.findUser("test"));
+		assertSame(user1, database.findUser("test"));
 
 	}
 

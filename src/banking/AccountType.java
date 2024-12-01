@@ -6,6 +6,4 @@ public interface AccountType {
 
     double calculateMonthlyPayment(int termInMonths, double loanAmount);
 
-    // LoanApplication createLoanApplication(Account acc, int termInMonths, double
-    // loanAmount);
 }

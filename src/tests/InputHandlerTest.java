@@ -1,6 +1,8 @@
 package tests;
 
 import banking.InputHandler;
+import banking.Savings;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayInputStream;
@@ -13,9 +15,8 @@ class InputHandlerTest {
 	@Test
 	void testGetLine() {
 
-		setInput("Hello, World!\n");
 		InputHandler inputHandler = InputHandler.getInstance();
-		// Call the method that reads from System.in
+		inputHandler.setScanner(setInput("Hello, World!\n"));
 		String output = inputHandler.getNextLine();
 		inputHandler.close();
 		assertEquals("Hello, World!", output);
@@ -25,9 +26,8 @@ class InputHandlerTest {
 	@Test
 	void testGetDouble() {
 
-		setInput("2.3 ");
 		InputHandler inputHandler = InputHandler.getInstance();
-		// Call the method that reads from System.in
+		inputHandler.setScanner(setInput("2.3 \n"));
 		double output = inputHandler.getNextDouble();
 		inputHandler.close();
 		assertEquals(2.3, output);
@@ -37,9 +37,8 @@ class InputHandlerTest {
 	@Test
 	void testGetInt() {
 
-		setInput("2 ");
 		InputHandler inputHandler = InputHandler.getInstance();
-		// Call the method that reads from System.in
+		inputHandler.setScanner(setInput("2 \n"));
 		int output = inputHandler.getNextInt();
 		inputHandler.close();
 		assertEquals(2, output);
@@ -47,15 +46,14 @@ class InputHandlerTest {
 	}
 
 	@Test
-	void testConstructorBranches() {
-		InputHandler.getInstance();
-		InputHandler inputHandler = InputHandler.getInstance();
-		assertDoesNotThrow(() -> inputHandler.close());
+	void testSingletonInstance() {
+		InputHandler instance = InputHandler.getInstance();
+		InputHandler anotherInstance = InputHandler.getInstance();
+		assertSame(instance, anotherInstance);
 	}
 
-	void setInput(String input) {
-		InputStream in = new ByteArrayInputStream(input.getBytes());
-		System.setIn(in);
+	static InputStream setInput(String input) {
+		return new ByteArrayInputStream(input.getBytes());
 
 	}
 

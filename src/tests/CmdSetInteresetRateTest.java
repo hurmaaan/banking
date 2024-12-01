@@ -2,16 +2,15 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ClientTest {
+import banking.CmdSetInterestRates;
+
+class CmdSetInteresetRateTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -23,7 +22,6 @@ class ClientTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-
 	}
 
 	@AfterEach
@@ -32,7 +30,7 @@ class ClientTest {
 
 	@Test
 	void test() {
-		
+		assertDoesNotThrow(() -> (new CmdSetInterestRates()).execute(new String[] { "0.03", "0.02" }));
 	}
 
 }

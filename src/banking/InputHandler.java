@@ -12,9 +12,6 @@ public class InputHandler {
         scanner = new Scanner(System.in);
     }
 
-    private InputHandler(InputStream in) {
-        scanner = new Scanner(in);
-    }
 
     public void setScanner(InputStream in) {
         scanner.close();

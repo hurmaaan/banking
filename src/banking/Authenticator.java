@@ -19,11 +19,11 @@ public class Authenticator {
                 System.out.println("Login successful! Welcome, " + user.getRole() + ".");
                 return user;
             } else {
-                System.out.println("User does not exist");
+                System.out.println("Login failed! Invalid password.");
                 return null;
             }
         } else {
-            System.out.println("Login failed! Invalid password.");
+            System.out.println("User does not exist.");
             return null;
         }
 

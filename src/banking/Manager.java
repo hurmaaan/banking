@@ -111,6 +111,7 @@ public class Manager implements Role {
         String savingsRate = scanner.getNextLine();
         System.out.print("Enter interest rate for Checking Account (e.g., 0.01 for 1%): ");
         String checkingRate = scanner.getNextLine();
+
         new CmdSetInterestRates().execute(new String[] { savingsRate, checkingRate });
 
     }

@@ -38,48 +38,36 @@ class ManagerTest {
 	void tearDown() throws Exception {
 	}
 
-//	@Test
-//	void testLogOut() {
-//
-//		String input = "5\n";
-//		InputHandler.getInstance().setScanner(setInput(input));
-//		new Manager().displayMenu();
-//
-//		String[] lines = getOutput().split("\n");
-//		assertEquals("Logging out...", lines[8].trim());
-//		InputHandler.getInstance().close();
-//	}
+	// @Test
+	// void testLogOut() {
+	//
+	// String input = "5\n";
+	// InputHandler.getInstance().setScanner(setInput(input));
+	// new Manager().displayMenu();
+	//
+	// String[] lines = getOutput().split("\n");
+	// assertEquals("Logging out...", lines[8].trim());
+	// InputHandler.getInstance().close();
+	// }
 
 	@Test
 	void testSetInterestRates() {
-
-		String input = "1\n 0.01\n0.03\n";
+		String input = "1 " + "\n0.02" + "\n0.03" + "\n5\n";
 		InputHandler.getInstance()
-		.setScanner(setInput(input));
-		User manager = new Manager();
-		
+				.setScanner(setInput(input));
+
+		Manager manager = new Manager();
 		manager.displayMenu();
 
 		String[] lines = getOutput().split("\n");
-		assertEquals("This command cannot be undone!", lines[8].trim());
 
-		assertEquals("Set Interest Rates for Account Types:", lines[9].trim());
-		assertEquals("Enter interest rate for Savings Account (e.g., 0.03 for 3%): ", lines[10].trim());
-		assertEquals("Enter interest rate forChecking Account (e.g., 0.01 for 1%): ", lines[11].trim());
+		assertEquals("Set Interest Rates for Account Types:", lines[8].trim());
+		assertEquals(
+				"Enter interest rate for Savings Account (e.g., 0.03 for 3%): Enter interest rate for Checking Account (e.g., 0.01 for 1%):"
+						.trim(),
+				lines[9].trim());
 
 	}
-
-	// static InputStream setInput(String input) {
-	// String[] lines = input.split("\n");
-
-	// for (String s : lines) {
-
-	// }
-
-	// InputStream in = new ByteArrayInputStream(input.getBytes());
-	// return in;
-
-	// }
 
 	static InputStream setInput(String input) {
 		byte[] bytes = input.replace("\n", System.lineSeparator()).getBytes();

@@ -5,3 +5,8 @@
 /ManagerTest.class
 /RecordedCommandTest.class
 /RecordedCommandTest$1commandStub.class
+/CmdSetInterestRate.class
+/CmdSetInteresetRateTest.class
+/SavingsTest.class
+/CheckingTest.class
+/AuthenticatorTest.class
