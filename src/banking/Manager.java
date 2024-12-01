@@ -31,7 +31,7 @@ public class Manager implements Role {
                     break;
                 case 5:
                     RecordedCommand.reset();
-                    System.out.println("Logging out...");
+                    System.out.println("\nLogging out...");
                     return;
                 default:
                     System.out.println("Invalid choice, please try again.");

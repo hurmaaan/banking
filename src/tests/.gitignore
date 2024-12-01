@@ -2,3 +2,6 @@
 /UserDataBaseTest.class
 /UserTest.class
 /ClientTest.class
+/ManagerTest.class
+/RecordedCommandTest.class
+/RecordedCommandTest$1commandStub.class

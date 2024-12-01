@@ -91,12 +91,12 @@ class UserTest {
 
 	@Test
 	void testDisplayClientMenu() {
-		InputHandler.getInstance().close();
-		InputHandler.getInstance(setInput("8\n"));
-		
+
+		InputHandler.getInstance().setScanner(setInput("8\n"));
 		user1.menu();
 
 		String output = getOutput();
+		
 		String[] lines = output.split("\n");
 		assertEquals("--- Client Menu ---", lines[1].trim());
 		assertEquals("1. View Account Details", lines[2].trim());
@@ -108,17 +108,49 @@ class UserTest {
 		assertEquals("7. List transaction history", lines[8].trim());
 		assertEquals("8. Logout", lines[9].trim());
 		
+		
 
 	}
 
 	
 	@Test
 	void testDisplayEmployeeMenu() {
+	  
+	    InputHandler.getInstance().setScanner(setInput("9\n")); 
+	    
+	    user3.menu(); 
+
+	    String output = getOutput();
+	    String[] lines = output.split("\n");
+
+	    assertEquals("--- Employee Menu ---", lines[1].trim());
+	    assertEquals("1. Open Account", lines[2].trim());
+	    assertEquals("2. Close Account", lines[3].trim());
+	    assertEquals("3. List Pending Loan Applications", lines[4].trim());
+	    assertEquals("4. Process Loan Applications", lines[5].trim());
+	    assertEquals("5. List accounts", lines[6].trim());
+	    assertEquals("6. Register new Client", lines[7].trim());
+	    assertEquals("7. Undo Last Action", lines[8].trim());
+	    assertEquals("8. Redo Last Action", lines[9].trim());
+	    assertEquals("9. Logout", lines[10].trim());
 
 	}
 
 	@Test
 	void testDisplayManagerMenu() {
+	    InputHandler.getInstance().setScanner(setInput("5\n"));
+	    
+	    user2.menu();
+
+	    String output = getOutput();
+	    String[] lines = output.split("\n");
+
+	    assertEquals("--- Manager Menu ---", lines[1].trim());
+	    assertEquals("1. Set Interest Rates", lines[2].trim());
+	    assertEquals("2. Manage Employees", lines[3].trim());
+	    assertEquals("3. Undo Last Command.", lines[4].trim());
+	    assertEquals("4. Redo Last Command", lines[5].trim());
+	    assertEquals("5. Logout", lines[6].trim());
 
 	}
 
