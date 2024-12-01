@@ -112,8 +112,6 @@ class BankTest {
 		assertEquals("Account Not Found", output.trim());
 	}
 
-	@Test
-
 	PrintStream oldPrintStream;
 	ByteArrayOutputStream bos;
 
