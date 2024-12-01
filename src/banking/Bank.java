@@ -25,11 +25,30 @@ public class Bank {
     }
 
     public void start() {
+        InputHandler inputHandler = InputHandler.getInstance();
         while (true) {
-            User user = authenticator.authenticate();
-            if (user != null) {
-                user.menu();
+            System.out.println("----Welcome to the Banking Management System----\nChoose an option: ");
+            System.out.println("1. Login");
+            System.out.println("2. Exit");
+            System.out.print("Choose an option: ");
+            int choice = inputHandler.getNextInt();
+
+            switch (choice) {
+                case 1: {
+                    User user = authenticator.authenticate();
+                    if (user != null) {
+                        user.menu();
+                    }
+                }
+                    break;
+                case 2:
+                    System.out.println("Exiting....");
+                    return;
+                default:
+                    System.out.println("Invalid choice!");
+                    break;
             }
+
         }
 
     }

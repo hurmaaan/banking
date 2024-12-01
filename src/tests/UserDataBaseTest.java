@@ -2,8 +2,6 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -21,27 +19,9 @@ class UserDataBaseTest {
 	private User user2 = new User("test2", "test123", new Manager());
 	private User user3 = new User("test3", "test123", new Employee());
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
 	@Test
 	void testAddUser() {
 		UserDatabase database = UserDatabase.getInstance();
-
-		User user3 = new User("test3", "test123", new Employee());
 
 		assertDoesNotThrow(() -> database.addUser(user3));
 
@@ -50,13 +30,15 @@ class UserDataBaseTest {
 	@Test
 	void testFindUser() {
 		UserDatabase database = UserDatabase.getInstance();
-		assertEquals(user3, database.findUser("test3"));
+		database.addUser(user1);
+		assertEquals(user1, database.findUser("test"));
 
 	}
 
 	@Test
 	void removeUser() {
 		UserDatabase database = UserDatabase.getInstance();
+		database.addUser(user3);
 		assertEquals(true, database.removeUser(user3));
 
 	}
