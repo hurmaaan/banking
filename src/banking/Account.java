@@ -7,7 +7,7 @@ public class Account {
     private User user;
     private double balance;
     private AccountType type;
-    private String accountId = null;
+    private String accountId;
     private List<Transaction> transactions;
     private static int firstAccountId = 109;
 
@@ -17,12 +17,6 @@ public class Account {
         accountId = String.valueOf(firstAccountId++);
         this.user = user;
         transactions = new ArrayList<>();
-    }
-
-    public Account(double balance, AccountType type, String accountId) {
-        this.balance = balance;
-        this.type = type;
-        this.accountId = accountId;
     }
 
     public static void listAccounts(List<Account> accounts, User user) {

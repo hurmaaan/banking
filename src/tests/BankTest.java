@@ -27,13 +27,16 @@ class BankTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		User u = UserDatabase.getInstance().findUser("customer");
-		acToRemoveAndAdd = new Account(50, Checking.getInstance(), u);
-
+		Bank.reset();
+		UserDatabase.reset();
+		Account.reset();
 	}
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
+		Bank.reset();
+		UserDatabase.reset();
+		Account.reset();
 	}
 
 	@BeforeEach
@@ -58,6 +61,7 @@ class BankTest {
 	@Test
 	void testAddAccount() {
 		User u = UserDatabase.getInstance().findUser("customer");
+		acToRemoveAndAdd = new Account(50, Checking.getInstance(), u);
 
 		bank.addAccount(acToRemoveAndAdd);
 

@@ -119,6 +119,7 @@ public class Bank {
         acc.listTransactions();
     }
 
+    
     public static void reset() {
         instance = null;
     }

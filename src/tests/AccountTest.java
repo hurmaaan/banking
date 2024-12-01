@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import banking.Account;
 import banking.Bank;
+import banking.RecordedCommand;
 import banking.Savings;
 import banking.User;
 import banking.UserDatabase;
@@ -24,6 +25,10 @@ class AccountTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		Account.reset();
+		Bank.reset();
+		UserDatabase.reset();
+		RecordedCommand.reset();
 		user = UserDatabase.getInstance().findUser("emp");
 		acc = new Account(300, Savings.getInstance(), user);
 		Bank.getInstance().addAccount(acc);
@@ -31,6 +36,7 @@ class AccountTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
+
 	}
 
 	@BeforeEach

@@ -21,9 +21,16 @@ import banking.User;
 import banking.UserDatabase;
 
 class CmdCloseAccountTest {
+	private static Bank bank;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		Bank.reset();
+		UserDatabase.reset();
+		Account.reset();
+		bank = Bank.getInstance();
+		RecordedCommand.reset();
+
 	}
 
 	@AfterAll
@@ -41,19 +48,19 @@ class CmdCloseAccountTest {
 
 	@Test
 	void testExecuteRedoUndo() {
-		User u = new User("testUserCmdClose", "123", new Client("testUserCmdClose"));
-		UserDatabase.getInstance().addUser(u);
-		Account ac = new Account(500, Savings.getInstance(), u);
-		Bank.getInstance().addAccount(ac);
+		User u = UserDatabase.getInstance().findUser("customer");
+
+		Account ac = new Account(0, Savings.getInstance(), u);
+		bank.addAccount(ac);
 		// check if account is successfully added
-		assertTrue(Bank.getInstance().hasAccount(u));
+		assertTrue(bank.hasAccount(u));
 		new CmdCloseAccount().execute(new String[] { ac.toString() });
-		assertFalse(Bank.getInstance().hasAccount(u));
+		assertFalse(bank.hasAccount(u));
 		RecordedCommand.undoOneCommand();
-		assertTrue(Bank.getInstance().hasAccount(u));
+		assertTrue(bank.hasAccount(u));
 		RecordedCommand.undoOneCommand();
 		RecordedCommand.redoOneCommand();
-		assertFalse(Bank.getInstance().hasAccount(u));
+		assertFalse(bank.hasAccount(u));
 
 		String[] outputLines = getOutput().split("\n");
 		assertEquals("Account Closed Successfully!", outputLines[0].trim());
