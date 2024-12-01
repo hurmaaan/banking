@@ -86,8 +86,22 @@ class AuthenticatorTest {
 	}
 
 	@Test
-	void authenticationFail() {
+	void testUserDoesNotExist() {
 		String input = "test4\ntest123";
+		InputHandler.getInstance().setScanner(setInput(input));
+		UserDatabase userDatabase = UserDatabase.getInstance();
+		userDatabase.addUser(user3);
+		Authenticator authenticator = new Authenticator(userDatabase);
+		User user = authenticator.authenticate();
+		String[] outputLines = getOutput().split("\n");
+
+		assertEquals("Enter username: Enter password: User does not exist.", outputLines[0].trim());
+		assertSame(null, user);
+	}
+
+	@Test
+	void testInvalidPassword() {
+		String input = "test3\ntest125";
 		InputHandler.getInstance().setScanner(setInput(input));
 		UserDatabase userDatabase = UserDatabase.getInstance();
 		userDatabase.addUser(user3);

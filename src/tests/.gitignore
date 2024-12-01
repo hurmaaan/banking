@@ -10,3 +10,6 @@
 /SavingsTest.class
 /CheckingTest.class
 /AuthenticatorTest.class
+/LoanRepaymentAdjustmentTest.class
+/LoanPendingTest.class
+/LoanPaidTest.class

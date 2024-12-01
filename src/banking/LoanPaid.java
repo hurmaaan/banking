@@ -17,7 +17,7 @@ public class LoanPaid implements LoanStatus {
 
     @Override
     public boolean canRepay() {
-        System.out.println("Loan alreay repaid!");
+        System.out.println("Loan already repaid!");
         return false;
     }
 
