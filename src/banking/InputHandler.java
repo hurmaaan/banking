@@ -5,9 +5,8 @@ import java.util.Scanner;
 
 public class InputHandler {
 
-    private static InputHandler systemInstance;
-    private static InputHandler userInstance;
-    private final Scanner scanner;
+    private static InputHandler instance;
+    private Scanner scanner;
 
     private InputHandler() {
         scanner = new Scanner(System.in);
@@ -17,18 +16,16 @@ public class InputHandler {
         scanner = new Scanner(in);
     }
 
-    public static InputHandler getInstance(InputStream in) {
-        if (userInstance == null) {
-            userInstance = new InputHandler(in);
-        }
-        return userInstance;
+    public void setScanner(InputStream in) {
+        scanner.close();
+        scanner = new Scanner(in);
     }
 
     public static InputHandler getInstance() {
-        if (systemInstance == null) {
-            systemInstance = new InputHandler();
+        if (instance == null) {
+            instance = new InputHandler();
         }
-        return systemInstance;
+        return instance;
     }
 
     public String getNextLine() {
@@ -46,8 +43,7 @@ public class InputHandler {
     public void close() {
 
         scanner.close();
-        systemInstance = null;
-        userInstance = null;
+        instance = null;
 
     }
 

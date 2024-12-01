@@ -92,9 +92,10 @@ class UserTest {
 	@Test
 	void testDisplayClientMenu() {
 		InputHandler.getInstance().close();
+		InputHandler.getInstance(setInput("8\n"));
 		
 		user1.menu();
-		setInput("8 \n ");
+
 		String output = getOutput();
 		String[] lines = output.split("\n");
 		assertEquals("--- Client Menu ---", lines[1].trim());
@@ -135,9 +136,9 @@ class UserTest {
 		return bos.toString();
 	}
 
-	private static void setInput(String input) {
+	private static InputStream setInput(String input) {
 		InputStream in = new ByteArrayInputStream(input.getBytes());
-		System.setIn(in);
+		return in;
 
 	}
 
