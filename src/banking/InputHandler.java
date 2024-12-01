@@ -31,9 +31,10 @@ public class InputHandler {
     }
 
     public void close() {
-        if (instance != null) {
-            scanner.close();
-        }
+
+        scanner.close();
+        instance = null;
+
     }
 
 }

@@ -6,7 +6,6 @@ import java.util.List;
 public class UserDatabase {
     private List<User> users;
 
-    // change to hashmap
     private static UserDatabase instance = null;
 
     public static UserDatabase getInstance() {
@@ -33,7 +32,7 @@ public class UserDatabase {
         users.add(u);
     }
 
-    public void removeUser(User u) {
-        users.remove(u);
+    public boolean removeUser(User u) {
+        return users.remove(u);
     }
 }
