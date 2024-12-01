@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.Test;
 
 import banking.Account;
 import banking.Bank;
+import banking.Checking;
+import banking.Client;
 import banking.RecordedCommand;
 import banking.Savings;
 import banking.User;
@@ -54,6 +57,15 @@ class AccountTest {
 		String output = getOutput();
 		assertEquals("Cannot close account with remaining balance. Please withdraw first!", output.trim());
 	}
+	
+	@Test
+	void testCloseSuccess() {
+		Account acc = new Account(0,Checking.getInstance(),user);
+		acc.close();
+		String output = getOutput();
+		assertEquals("Account Closed Successfully!", output.trim());
+		
+	}
 
 	@Test
 	void testPrintDetails() {
@@ -63,6 +75,25 @@ class AccountTest {
 		assertEquals("Balance: 300.0", output[1].trim());
 		assertEquals("Type: Savings", output[2].trim());
 		assertEquals("------", output[3].trim());
+	}
+
+	@Test
+	void testVoidAccountBelongsToUser() {
+		ArrayList<Account> accounts = new ArrayList<>();
+		accounts.add(acc);
+
+		assertSame(acc, Account.accountBelongsToUser(accounts, user.toString(), acc.toString()));
+
+	}
+
+	@Test
+	void testVoidAccountNotBelongsToUser() {
+		ArrayList<Account> accounts = new ArrayList<>();
+		User testUser = new User("test", "test", new Client("test"));
+		accounts.add(acc);
+		assertSame(null, Account.accountBelongsToUser(accounts, testUser.toString(), acc.toString()));
+		assertSame(null, Account.accountBelongsToUser(accounts, testUser.toString(),"120"));
+		
 	}
 
 	@Test

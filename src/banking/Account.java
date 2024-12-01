@@ -24,10 +24,7 @@ public class Account {
         for (Account acc : accounts) {
             if (user == acc.user) {
                 accountsExist = true;
-                System.out.println("Account ID: " + acc.accountId);
-                System.out.println("Balance: " + acc.balance);
-                System.out.println("Type: " + acc.type);
-                System.out.println("------");
+                acc.printDetails();
             }
         }
 
