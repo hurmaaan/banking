@@ -35,4 +35,8 @@ public class UserDatabase {
     public boolean removeUser(User u) {
         return users.remove(u);
     }
+
+    public static void reset() {
+        instance = null;
+    }
 }

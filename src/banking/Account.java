@@ -150,4 +150,8 @@ public class Account {
         return amount;
 
     }
+
+    public static void reset() {
+        firstAccountId = 109;
+    }
 }
