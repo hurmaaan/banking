@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import banking.Account;
 import banking.Bank;
+import banking.Client;
 import banking.CmdCloseAccount;
 import banking.RecordedCommand;
 import banking.Savings;
@@ -40,7 +41,8 @@ class CmdCloseAccountTest {
 
 	@Test
 	void testExecuteRedoUndo() {
-		User u = UserDatabase.getInstance().findUser("customer");
+		User u = new User("testUserCmdClose", "123", new Client("testUserCmdClose"));
+		UserDatabase.getInstance().addUser(u);
 		Account ac = new Account(500, Savings.getInstance(), u);
 		Bank.getInstance().addAccount(ac);
 		// check if account is successfully added
