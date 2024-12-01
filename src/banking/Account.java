@@ -65,12 +65,12 @@ public class Account {
         return accountId;
     }
 
-    public static void close(Account acc) {
-        if (acc.balance != 0) {
+    public void close() {
+        if (balance != 0) {
             System.out.println("Cannot close account with remaining balance. Please withdraw first!");
             return;
         }
-        new CmdCloseAccount().execute(new String[] { acc.accountId });
+        new CmdCloseAccount().execute(new String[] { accountId });
     }
 
     public static Account accountBelongsToUser(List<Account> accounts, String username, String accId) {

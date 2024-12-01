@@ -11,32 +11,32 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import banking.LoanPaid;
+import banking.LoanRejected;
 
-class LoanPaidTest {
+class LoanRejectedTest {
 
-	private LoanPaid loanPaid;
+	private LoanRejected loanRejected;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		loanPaid = LoanPaid.getInstance();
+		loanRejected = LoanRejected.getInstance();
 		setOutput();
 	}
 
 	@Test
 	void testSingletonInstance() {
 
-		LoanPaid anotherInstance = LoanPaid.getInstance();
-		assertSame(loanPaid, anotherInstance);
+		LoanRejected anotherInstance = LoanRejected.getInstance();
+		assertSame(loanRejected, anotherInstance);
 	}
 
 	@Test
 	void testCanRepay() {
-		
-		assertFalse(loanPaid.canRepay());
+
+		assertFalse(loanRejected.canRepay());
 		String output = getOutput();
-		assertEquals("Loan already repaid!", output.trim());
-		
+		assertEquals("Loan Rejected. Cannot Proceed.", output.trim());
+
 	}
 
 	PrintStream oldPrintStream;
@@ -51,6 +51,6 @@ class LoanPaidTest {
 	private String getOutput() { // throws Exception
 		System.setOut(oldPrintStream);
 		return bos.toString();
-	}
 
+	}
 }

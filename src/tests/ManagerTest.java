@@ -38,17 +38,17 @@ class ManagerTest {
 	void tearDown() throws Exception {
 	}
 
-	// @Test
-	// void testLogOut() {
-	//
-	// String input = "5\n";
-	// InputHandler.getInstance().setScanner(setInput(input));
-	// new Manager().displayMenu();
-	//
-	// String[] lines = getOutput().split("\n");
-	// assertEquals("Logging out...", lines[8].trim());
-	// InputHandler.getInstance().close();
-	// }
+	 @Test
+	 void testLogOut() {
+	
+	 String input = "5\n";
+	 InputHandler.getInstance().setScanner(setInput(input));
+	 new Manager().displayMenu();
+	
+	 String[] lines = getOutput().split("\n");
+	 assertEquals("Logging out...", lines[8].trim());
+	 InputHandler.getInstance().close();
+	 }
 
 	@Test
 	void testSetInterestRates() {

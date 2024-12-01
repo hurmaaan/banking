@@ -85,7 +85,7 @@ public class Bank {
             return;
         }
 
-        Account.close(acc);
+        acc.close();
     }
 
     public Account removeAccount(String string) {

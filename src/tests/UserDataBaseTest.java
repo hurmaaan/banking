@@ -16,7 +16,7 @@ import banking.User;
 import banking.UserDatabase;
 
 class UserDataBaseTest {
-	private User user1 = new User("test", "test123", new Client("test"));
+	private User user1 = new User("testDB", "test123", new Client("test"));
 	private User user2 = new User("test2", "test123", new Manager());
 	private User user3 = new User("test3", "test123", new Employee());
 
@@ -38,7 +38,7 @@ class UserDataBaseTest {
 	void testFindUser() {
 		UserDatabase database = UserDatabase.getInstance();
 		database.addUser(user1);
-		assertSame(user1, database.findUser("test"));
+		assertSame(user1, database.findUser("testDB"));
 
 	}
 

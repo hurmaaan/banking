@@ -13,3 +13,7 @@
 /LoanRepaymentAdjustmentTest.class
 /LoanPendingTest.class
 /LoanPaidTest.class
+/LoanRejectedTest.class
+/LoanApproved.class
+/LoanApprovedTest.class
+/BankTest.class
