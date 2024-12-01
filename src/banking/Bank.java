@@ -32,7 +32,7 @@ public class Bank {
             System.out.println("2. Exit");
             System.out.print("Choose an option: ");
             int choice = inputHandler.getNextInt();
-
+            inputHandler.getNextLine();
             switch (choice) {
                 case 1: {
                     User user = authenticator.authenticate();

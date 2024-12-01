@@ -1,7 +1,11 @@
 package banking;
 
 public class Manager implements Role {
-    private InputHandler scanner = InputHandler.getInstance();
+    private InputHandler scanner;
+
+    public Manager() {
+        scanner = InputHandler.getInstance();
+    }
 
     @Override
     public void displayMenu() {
