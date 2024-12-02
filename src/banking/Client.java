@@ -70,6 +70,7 @@ public class Client implements Role {
             Double amount = Double.parseDouble(scanner.getNextLine());
             if (amount <= 0) {
                 System.out.println("Invalid amount entered.\n Aborting Transaction...");
+                return;
             }
             new RepayLoan(amount).execute(new String[] { loanId, username });
         } catch (NumberFormatException e) {

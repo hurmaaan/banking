@@ -153,10 +153,33 @@ class ManagerTest {
 	}
 
 	@Test
-	void testManageEmployeesRemoveEmployee() {
-		String input = "2 " + "\n2" + "\nemp2" + "\nabc" + "\nacb" + "\nabc" + "\nabc" + "\n5\n";
+	void testManageEmployeesRemoveEmployee_1() {
+		String input = "2 " + "\n2" + "\nemp4" + "\n5\n";
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
+
+		Manager manager = new Manager();
+		manager.displayMenu();
+
+		String[] lines = getOutput().split("\n");
+		assertEquals("Choose an option: Enter username of employee to remove: Invalid username.", lines[10].trim());
+
+	}
+
+	@Test
+	void testManageEmployeesRemoveEmployee_2() {
+		String input = "2 " + "\n2" + "\nemp" + "\n5\n"; // default emp account
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertNotNull(UserDatabase.getInstance().findUser("emp"));
+
+		Manager manager = new Manager();
+		manager.displayMenu();
+		assertNull(UserDatabase.getInstance().findUser("emp"));
+		String[] lines = getOutput().split("\n");
+
+		assertEquals("Choose an option: Enter username of employee to remove: Employee removed successfully",
+				lines[10].trim());
 
 	}
 
@@ -171,6 +194,10 @@ class ManagerTest {
 		String[] lines = getOutput().split("\n");
 		assertEquals("Choose an option: Invalid choice, please try again.", lines[7].trim());
 
+	}
+	@Test
+	void testToString() {
+		assertEquals("Manager",new Manager().toString());
 	}
 
 	static InputStream setInput(String input) {
