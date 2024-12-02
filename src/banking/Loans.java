@@ -82,4 +82,8 @@ public class Loans {
         System.out.println("Either loan Id is invalid or loan has not been approved yet.");
     }
 
+    public static void reset() {
+        instance = null;
+    }
+
 }

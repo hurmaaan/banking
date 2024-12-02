@@ -79,4 +79,7 @@ public class LoanApplication {
         }
     }
 
+    public static void reset() {
+        LoanId = 2;
+    }
 }
