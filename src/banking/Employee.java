@@ -85,8 +85,8 @@ public class Employee implements Role {
     private void listAllAccounts() {
         System.out.print("Enter username:");
         String username = scanner.getNextLine();
-        UserDatabase.getInstance().findUser(username);
-        if (username == null) {
+        User u = UserDatabase.getInstance().findUser(username);
+        if (u == null) {
             System.out.println("Invalid username");
             return;
         }
