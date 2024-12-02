@@ -157,6 +157,7 @@ class ManagerTest {
 		String input = "2 " + "\n2" + "\nemp2" + "\nabc" + "\nacb" + "\nabc" + "\nabc" + "\n5\n";
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
+
 	}
 
 	@Test

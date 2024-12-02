@@ -92,7 +92,7 @@ public class Manager implements Role {
         System.out.print("Enter username of employee to remove: ");
         String username = scanner.getNextLine();
         User u = UserDatabase.getInstance().findUser(username);
-        if (username == null) {
+        if (u == null) {
             System.out.println("Invalid username.");
             return;
         }
