@@ -118,6 +118,35 @@ class BankTest {
 		assertEquals("Account Not Found", output.trim());
 	}
 
+	@Test
+	void testListAccounts() {
+		User user = new User("testListBank", "123", new Client("testListBank"));
+		Account a = new Account(5, Savings.getInstance(), user);
+		bank.addAccount(a);
+		bank.listAccounts(user);
+		String[] output = getOutput().split("\n");
+		assertEquals("Account ID: " + a.toString(), output[0].trim());
+		assertEquals("Balance: 5.0", output[1].trim());
+		assertEquals("Type: Savings", output[2].trim());
+		assertEquals("------", output[3].trim());
+	}
+
+	@Test
+	void testUserHasAccount() {
+		User user = new User("testListAccountExist", "123", new Client("testListAccountExist"));
+		Account a = new Account(6, Savings.getInstance(), user);
+		bank.addAccount(a);
+		assertSame(a, bank.userHasAccount(user.toString(), a.toString()));
+	}
+
+	@Test
+	void testUserHasAccountNull() {
+		User user = new User("testListAccountExistNull", "123", new Client("testListAccountExistNull"));
+		Account a = new Account(6, Savings.getInstance(), user);
+
+		assertEquals(null, bank.userHasAccount(user.toString(), a.toString()));
+	}
+
 	PrintStream oldPrintStream;
 	ByteArrayOutputStream bos;
 

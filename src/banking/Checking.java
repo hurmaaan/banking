@@ -18,7 +18,7 @@ public class Checking implements AccountType {
 
     @Override
 
-    public void setInteresetRate(double interestRate) {
+    public void setInterestRate(double interestRate) {
         this.interestRate = interestRate;
     }
 

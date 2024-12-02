@@ -2,7 +2,6 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +29,7 @@ class SavingsTest {
 
 	@Test
 	void testCalculateMonthlyPayment() {
-		savingsAccount.setInteresetRate(0.1);
+		savingsAccount.setInterestRate(0.1);
 		double expectedPayment = 87.92;
 		double actualPayment = savingsAccount.calculateMonthlyPayment(12, 1000);
 		assertEquals(expectedPayment, actualPayment, 0.01);
@@ -38,7 +37,7 @@ class SavingsTest {
 
 	@Test
 	void testCalculateMonthlyPaymentWithDifferentRates() {
-		savingsAccount.setInteresetRate(0.12);
+		savingsAccount.setInterestRate(0.12);
 		double expectedPayment = 88.85;
 		double actualPayment = savingsAccount.calculateMonthlyPayment(12, 1000);
 		assertEquals(expectedPayment, actualPayment, 0.01);

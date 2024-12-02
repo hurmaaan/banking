@@ -29,7 +29,7 @@ class CheckingTest {
 
 	@Test
 	void testCalculateMonthlyPayment() {
-		checkingAccount.setInteresetRate(0.1);
+		checkingAccount.setInterestRate(0.1);
 		double expectedPayment = 87.92;
 		double actualPayment = checkingAccount.calculateMonthlyPayment(12, 1000);
 		assertEquals(expectedPayment, actualPayment, 0.01);
@@ -37,7 +37,7 @@ class CheckingTest {
 
 	@Test
 	void testCalculateMonthlyPaymentWithDifferentRates() {
-		checkingAccount.setInteresetRate(0.12);
+		checkingAccount.setInterestRate(0.12);
 		double expectedPayment = 88.85;
 		double actualPayment = checkingAccount.calculateMonthlyPayment(12, 1000);
 		assertEquals(expectedPayment, actualPayment, 0.01);

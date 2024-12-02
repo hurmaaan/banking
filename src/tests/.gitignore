@@ -19,3 +19,5 @@
 /BankTest.class
 /CmdCloseAccountTest.class
 /AccountTest.class
+/CmdRegisterUserTest.class
+/CmdRemoveUserTest.class

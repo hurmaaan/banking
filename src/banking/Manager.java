@@ -96,10 +96,6 @@ public class Manager implements Role {
             System.out.println("Invalid username.");
             return;
         }
-        if (Bank.getInstance().hasAccount(u)) {
-            System.out.println("Employee has account(s). Please close them first.");
-            return;
-        }
 
         new CmdRemoveUser().execute(new String[] { username });
     }

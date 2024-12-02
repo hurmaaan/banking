@@ -17,6 +17,7 @@ import banking.Employee;
 import banking.InputHandler;
 import banking.Manager;
 import banking.User;
+import banking.UserDatabase;
 
 class ManagerTest {
 	// private static User user = new User("test3", "test123", new Manager());
@@ -38,17 +39,17 @@ class ManagerTest {
 	void tearDown() throws Exception {
 	}
 
-	 @Test
-	 void testLogOut() {
-	
-	 String input = "5\n";
-	 InputHandler.getInstance().setScanner(setInput(input));
-	 new Manager().displayMenu();
-	
-	 String[] lines = getOutput().split("\n");
-	 assertEquals("Logging out...", lines[8].trim());
-	 InputHandler.getInstance().close();
-	 }
+	@Test
+	void testLogOut() {
+
+		String input = "5\n";
+		InputHandler.getInstance().setScanner(setInput(input));
+		new Manager().displayMenu();
+
+		String[] lines = getOutput().split("\n");
+		assertEquals("Logging out...", lines[8].trim());
+		InputHandler.getInstance().close();
+	}
 
 	@Test
 	void testSetInterestRates() {
@@ -66,6 +67,108 @@ class ManagerTest {
 				"Enter interest rate for Savings Account (e.g., 0.03 for 3%): Enter interest rate for Checking Account (e.g., 0.01 for 1%):"
 						.trim(),
 				lines[9].trim());
+
+	}
+
+	@Test
+	void testUndoEmpty() {
+		// undo for all the commands have already been tested in their respective
+		// CmdTest files
+		String input = "3 " + "\n5\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+
+		Manager manager = new Manager();
+		manager.displayMenu();
+
+		String[] lines = getOutput().split("\n");
+		assertEquals("Choose an option: Nothing to undo.", lines[7].trim());
+	}
+
+	@Test
+	void testRedoEmpty() {
+		// redo for all the commands have already been tested in their respective
+		// CmdTest files
+		String input = "4 " + "\n5\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+
+		Manager manager = new Manager();
+		manager.displayMenu();
+
+		String[] lines = getOutput().split("\n");
+		assertEquals("Choose an option: Nothing to redo.", lines[7].trim());
+	}
+
+	@Test
+	void testManageEmployeesInvalid() {
+		String input = "2 " + "\n3" + "\n5\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+
+		Manager manager = new Manager();
+		manager.displayMenu();
+
+		String[] lines = getOutput().split("\n");
+		assertEquals("Choose an option: Employee Management:", lines[7].trim());
+		assertEquals("1. Add Employee", lines[8].trim());
+		assertEquals("2. Remove Employee", lines[9].trim());
+		assertEquals("Choose an option: Invalid option. Returning to menu.", lines[10].trim());
+
+	}
+
+	@Test
+	void testManageEmployeesAddEmployee_1() {
+		String input = "2 " + "\n1" + "\nemp" + "\n5\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+
+		Manager manager = new Manager();
+		manager.displayMenu();
+
+		String[] lines = getOutput().split("\n");
+
+		assertEquals("Choose an option: Enter new username:Username already exists!", lines[10].trim());
+
+	}
+
+	@Test
+	void testManageEmployeesAddEmployee_2() {
+		String input = "2 " + "\n1" + "\nemp2" + "\nabc" + "\nacb" + "\nabc" + "\nabc" + "\n5\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertNull(UserDatabase.getInstance().findUser("emp2"));
+
+		Manager manager = new Manager();
+		manager.displayMenu();
+
+		String[] lines = getOutput().split("\n");
+
+		assertEquals(
+				"Choose an option: Enter new username:Enter PasswordRe-enter PasswordPasswords do not match. Try again.",
+				lines[10].trim());
+		assertEquals("Enter PasswordRe-enter PasswordUser added successfully!", lines[11].trim());
+		assertNotNull(UserDatabase.getInstance().findUser("emp2"));
+
+	}
+
+	@Test
+	void testManageEmployeesRemoveEmployee() {
+		String input = "2 " + "\n2" + "\nemp2" + "\nabc" + "\nacb" + "\nabc" + "\nabc" + "\n5\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+	}
+
+	@Test
+	void testInvalid() {
+		String input = "7 " + "\n5\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+
+		Manager manager = new Manager();
+		manager.displayMenu();
+		String[] lines = getOutput().split("\n");
+		assertEquals("Choose an option: Invalid choice, please try again.", lines[7].trim());
 
 	}
 

@@ -57,14 +57,14 @@ class AccountTest {
 		String output = getOutput();
 		assertEquals("Cannot close account with remaining balance. Please withdraw first!", output.trim());
 	}
-	
+
 	@Test
 	void testCloseSuccess() {
-		Account acc = new Account(0,Checking.getInstance(),user);
+		Account acc = new Account(0, Checking.getInstance(), user);
 		acc.close();
 		String output = getOutput();
 		assertEquals("Account Closed Successfully!", output.trim());
-		
+
 	}
 
 	@Test
@@ -92,16 +92,16 @@ class AccountTest {
 		User testUser = new User("test", "test", new Client("test"));
 		accounts.add(acc);
 		assertSame(null, Account.accountBelongsToUser(accounts, testUser.toString(), acc.toString()));
-		assertSame(null, Account.accountBelongsToUser(accounts, testUser.toString(),"120"));
-		
+		assertSame(null, Account.accountBelongsToUser(accounts, testUser.toString(), "120"));
+
 	}
-	
-	@Test 
+
+	@Test
 	void testListAccounts() {
 		ArrayList<Account> accounts = new ArrayList<>();
 		accounts.add(acc);
 		User testUser = new User("test", "test", new Client("test"));
-		Account a = new Account(5,Savings.getInstance(),testUser);
+		Account a = new Account(5, Savings.getInstance(), testUser);
 		accounts.add(a);
 		Account.listAccounts(accounts, user);
 		String[] output = getOutput().split("\n");
@@ -109,10 +109,9 @@ class AccountTest {
 		assertEquals("Balance: 300.0", output[1].trim());
 		assertEquals("Type: Savings", output[2].trim());
 		assertEquals("------", output[3].trim());
-		
-		
+
 	}
-	
+
 	@Test
 	void testListAccountsNoAccount() {
 		ArrayList<Account> accounts = new ArrayList<>();
@@ -121,9 +120,18 @@ class AccountTest {
 
 		Account.listAccounts(accounts, testUser);
 		String output = getOutput();
-		
-		assertEquals("This user has no accounts",output.trim());
-		
+
+		assertEquals("This user has no accounts", output.trim());
+
+	}
+
+	@Test
+
+	void testCalculateMonthlyPayment() {
+		Savings.getInstance().setInterestRate(0.1);
+		double expectedPayment = 87.92;
+		double actualPayment = acc.calculateMonthlyPayment(12, 1000);
+		assertEquals(expectedPayment, actualPayment, 0.01);
 	}
 
 	@Test

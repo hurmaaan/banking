@@ -17,6 +17,7 @@ class RecordedCommandTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		RecordedCommand.reset();
 	}
 
 	@AfterAll
