@@ -22,3 +22,6 @@
 /CmdRegisterUserTest.class
 /CmdRemoveUserTest.class
 /EmployeeTest.class
+/CmdOpenAccountTest.class
+/CmdListAccount.class
+/CmdListAccountTest.class

@@ -15,20 +15,18 @@ import org.junit.jupiter.api.Test;
 
 import banking.Account;
 import banking.Bank;
+import banking.Checking;
 import banking.Employee;
 import banking.InputHandler;
 import banking.Manager;
 import banking.RecordedCommand;
+import banking.User;
 import banking.UserDatabase;
 
 class EmployeeTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-
-		RecordedCommand.reset();
-		Bank.reset();
-		Account.reset();
 
 	}
 
@@ -39,6 +37,10 @@ class EmployeeTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		setOutput();
+
+		RecordedCommand.reset();
+		Bank.reset();
+		Account.reset();
 	}
 
 	@AfterEach
@@ -152,6 +154,89 @@ class EmployeeTest {
 		assertEquals(
 				"Choose an option: Enter user ID for the account: Enter initial deposit amount: Enter account type (Savings/Checking): Account Opened Successfully!",
 				lines[11].trim());
+
+	}
+
+	@Test
+
+	void testCloseAccount() {
+		String input = "2 " + "\n109" + "\n9\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+
+		User u = UserDatabase.getInstance().findUser("customer");
+		Account a = new Account(0, Checking.getInstance(), u);
+
+		Bank.getInstance().addAccount(a);
+		assertTrue(Bank.getInstance().hasAccount(u));
+		Employee employee = new Employee();
+		employee.displayMenu();
+		assertFalse(Bank.getInstance().hasAccount(u));
+
+		String[] lines = getOutput().split("\n");
+		// integration testing, all other branches have already been tested
+		assertEquals(
+				"Choose an option: Enter Account Id to close:Account Closed Successfully!",
+				lines[11].trim());
+	}
+
+	@Test
+	void testRegisterClient() {
+		String input = "6 " + "\ncustomer" + "\n9\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+
+		Employee employee = new Employee();
+		employee.displayMenu();
+
+		String[] lines = getOutput().split("\n");
+
+		assertEquals("Choose an option: Enter new username:Username already exists!", lines[11].trim());
+	}
+
+	@Test
+	void testRegisterClient_2() {
+		String input = "6 " + "\ncustomer2" + "\nabc" + "\nbca" + "\nabc" + "\nabc" + "\n9\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertNull(UserDatabase.getInstance().findUser("customer2"));
+
+		Employee employee = new Employee();
+		employee.displayMenu();
+		assertNotNull(UserDatabase.getInstance().findUser("customer2"));
+
+		String[] lines = getOutput().split("\n");
+		assertEquals(
+				"Choose an option: Enter new username:Enter PasswordRe-enter PasswordPasswords do not match. Try again.",
+				lines[11].trim());
+		assertEquals("Enter PasswordRe-enter PasswordUser added successfully!", lines[12].trim());
+	}
+
+	@Test
+	void testListAccounts_1() {
+		String input = "5 " + "\ncustomer3" + "\n9\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+
+		Employee employee = new Employee();
+		employee.displayMenu();
+		String[] lines = getOutput().split("\n");
+
+		assertEquals("Choose an option: Enter username:Invalid username", lines[11].trim());
+
+	}
+
+	@Test
+	void testListAccounts_2() {
+		String input = "5 " + "\ncustomer" + "\n9\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+
+		Employee employee = new Employee();
+		employee.displayMenu();
+		String[] lines = getOutput().split("\n");
+
+		assertEquals("Choose an option: Enter username:Accounts belonging to customer", lines[11].trim());
 
 	}
 

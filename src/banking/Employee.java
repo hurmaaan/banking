@@ -88,6 +88,7 @@ public class Employee implements Role {
         UserDatabase.getInstance().findUser(username);
         if (username == null) {
             System.out.println("Invalid username");
+            return;
         }
         System.out.println("Accounts belonging to " + username);
         new CmdListAccounts().execute(new String[] { username });
