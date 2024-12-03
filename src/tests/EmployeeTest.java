@@ -241,6 +241,61 @@ class EmployeeTest {
 	}
 
 	@Test
+
+	void testListPendingLoans() {
+		String input = "3 " + "\n9\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		Employee employee = new Employee();
+		// integration testing
+		assertDoesNotThrow(() -> employee.displayMenu());
+
+	}
+
+	@Test
+	void testProcessInvalid() {
+		String input = "4 " + "\n2" + "\n3" + "\n9\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		Employee employee = new Employee();
+		employee.displayMenu();
+		String[] lines = getOutput().split("\n");
+		assertEquals("Choose an option: WARNING!!! This action cannot be undone!", lines[11].trim());
+		assertEquals("Enter loan application ID: 1. Approve Loan", lines[12].trim());
+		assertEquals("2. Reject Loan", lines[13].trim());
+		assertEquals("Choose an option: Invalid option.", lines[14].trim());
+
+	}
+
+	@Test
+	void testProcessApprove() {
+		String input = "4 " + "\n2" + "\n1" + "\n9\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		Employee employee = new Employee();
+		assertDoesNotThrow(() -> employee.displayMenu());
+		String[] lines = getOutput().split("\n");
+		assertEquals("Choose an option: WARNING!!! This action cannot be undone!", lines[11].trim());
+		assertEquals("Enter loan application ID: 1. Approve Loan", lines[12].trim());
+		assertEquals("2. Reject Loan", lines[13].trim());
+
+	}
+
+	@Test
+	void testProcessReject() {
+		String input = "4 " + "\n2" + "\n2" + "\n9\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		Employee employee = new Employee();
+		assertDoesNotThrow(() -> employee.displayMenu());
+		String[] lines = getOutput().split("\n");
+		assertEquals("Choose an option: WARNING!!! This action cannot be undone!", lines[11].trim());
+		assertEquals("Enter loan application ID: 1. Approve Loan", lines[12].trim());
+		assertEquals("2. Reject Loan", lines[13].trim());
+
+	}
+
+	@Test
 	void testToString() {
 		assertEquals("Employee", new Employee().toString());
 	}

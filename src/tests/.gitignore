@@ -25,3 +25,9 @@
 /CmdOpenAccountTest.class
 /CmdListAccount.class
 /CmdListAccountTest.class
+/LoanApplicationTest.class
+/LoansTest.class
+/CmdListPendingLoansTest.class
+/CmdApproveLoanTest.class
+/CmdRejectLoanTest.class
+/CmdApplyLoanTest.class
