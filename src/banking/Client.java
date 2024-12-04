@@ -64,7 +64,7 @@ public class Client implements Role {
     private void repayLoan() {
         System.out.print("Enter Loan Id: ");
         String loanId = scanner.getNextLine();
-        System.out.print("Enter amount to repay: ");
+        System.out.print("Enter Amount to Repay: ");
         try {
 
             Double amount = Double.parseDouble(scanner.getNextLine());

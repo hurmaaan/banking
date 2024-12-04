@@ -2,7 +2,9 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Field;
 
@@ -16,6 +18,7 @@ import banking.Account;
 import banking.Bank;
 import banking.Checking;
 import banking.Client;
+import banking.InputHandler;
 import banking.LoanApproved;
 import banking.Savings;
 import banking.Transfer;
@@ -198,6 +201,55 @@ class BankTest {
 
 	}
 
+	@Test
+	void testStart_1() {
+		String input = "1 " + "\ns" + "\ns" + "\n2\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		Bank.getInstance().start();
+		String[] lines = getOutput().split("\n");
+		assertEquals("----Welcome to the Banking Management System----", lines[0].trim());
+		assertEquals("Choose an option:", lines[1].trim());
+		assertEquals("1. Login", lines[2].trim());
+		assertEquals("2. Exit", lines[3].trim());
+		assertEquals("Choose an option: Enter username: Enter password: User does not exist.", lines[4].trim());
+		assertEquals("----Welcome to the Banking Management System----", lines[5].trim());
+		assertEquals("Choose an option:", lines[6].trim());
+		assertEquals("1. Login", lines[7].trim());
+		assertEquals("2. Exit", lines[8].trim());
+		assertEquals("Choose an option: Exiting....", lines[9].trim());
+
+	}
+
+	@Test
+	void testStart_2() {
+		String input = "3 " + "\n2\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		Bank.getInstance().start();
+		String[] lines = getOutput().split("\n");
+		assertEquals("----Welcome to the Banking Management System----", lines[0].trim());
+		assertEquals("Choose an option:", lines[1].trim());
+		assertEquals("1. Login", lines[2].trim());
+		assertEquals("2. Exit", lines[3].trim());
+
+	}
+
+	@Test
+	void testStart_3() {
+		String input = "1 " + "\ncustomer" + "\ncustomer123" + "\n8" + "\n2\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		Bank.getInstance().start();
+		String[] lines = getOutput().split("\n");
+		assertEquals("----Welcome to the Banking Management System----", lines[0].trim());
+		assertEquals("Choose an option:", lines[1].trim());
+		assertEquals("1. Login", lines[2].trim());
+		assertEquals("2. Exit", lines[3].trim());
+		assertEquals("Choose an option: Enter username: Enter password: Login successful! Welcome, Client.", lines[4].trim());
+
+	}
+
 	PrintStream oldPrintStream;
 	ByteArrayOutputStream bos;
 
@@ -210,6 +262,11 @@ class BankTest {
 	private String getOutput() { // throws Exception
 		System.setOut(oldPrintStream);
 		return bos.toString();
+	}
+
+	static InputStream setInput(String input) {
+		byte[] bytes = input.replace("\n", System.lineSeparator()).getBytes();
+		return new ByteArrayInputStream(bytes);
 	}
 
 }

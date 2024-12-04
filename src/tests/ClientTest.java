@@ -134,6 +134,206 @@ class ClientTest {
 	}
 
 	@Test
+	void testDeposit() {
+
+		String input = "2 " + "\n102" + "\n-3000" + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertDoesNotThrow(() -> new Client("customer").displayMenu());
+		String[] lines = getOutput().split("\n");
+		assertEquals("Choose an option: Enter your account number: Enter amount to depositInvalid amount entered.",
+				lines[10].trim());
+		assertEquals("Aborting Transaction...", lines[11].trim());
+
+	}
+
+	@Test
+	void testDeposit_2() {
+
+		String input = "2 " + "\n102" + "\nhg" + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertDoesNotThrow(() -> new Client("customer").displayMenu());
+		String[] lines = getOutput().split("\n");
+		assertEquals(
+				"Choose an option: Enter your account number: Enter amount to depositInvalid amount entered.",
+				lines[10].trim());
+
+	}
+
+	@Test
+	void testDeposit_3() {
+
+		String input = "2 " + "\n102" + "\n200" + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertDoesNotThrow(() -> new Client("customer").displayMenu());
+		String[] lines = getOutput().split("\n");
+
+		assertEquals(
+				"Choose an option: Enter your account number: Enter amount to depositInvalid account id",
+				lines[10].trim());
+
+	}
+
+	@Test
+	void testWithdrawal() {
+
+		String input = "3 " + "\n102" + "\n-3000" + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertDoesNotThrow(() -> new Client("customer").displayMenu());
+		String[] lines = getOutput().split("\n");
+		assertEquals("Choose an option: Enter your account number: Enter amount to withdrawInvalid amount entered.",
+				lines[10].trim());
+		assertEquals("Aborting Transaction...", lines[11].trim());
+
+	}
+
+	@Test
+	void testWithdrawal_2() {
+
+		String input = "3 " + "\n102" + "\nhg" + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertDoesNotThrow(() -> new Client("customer").displayMenu());
+		String[] lines = getOutput().split("\n");
+		assertEquals(
+				"Choose an option: Enter your account number: Enter amount to withdrawInvalid amount entered.",
+				lines[10].trim());
+
+	}
+
+	@Test
+	void testWithdrawal_3() {
+
+		String input = "3 " + "\n102" + "\n200" + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertDoesNotThrow(() -> new Client("customer").displayMenu());
+		String[] lines = getOutput().split("\n");
+
+		assertEquals(
+				"Choose an option: Enter your account number: Enter amount to withdrawInvalid account id",
+				lines[10].trim());
+
+	}
+
+	@Test
+	void testTransfer() {
+
+		String input = "4 " + "\n102" + "\n102" + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertDoesNotThrow(() -> new Client("customer").displayMenu());
+		String[] lines = getOutput().split("\n");
+		assertEquals(
+				"Choose an option: Enter your account number: Enter other account number: Cannot transfer to the same account!",
+				lines[10].trim());
+
+	}
+
+	@Test
+	void testTransfer_2() {
+
+		String input = "4 " + "\n102" + "\n103" + "\n-20" + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertDoesNotThrow(() -> new Client("customer").displayMenu());
+		String[] lines = getOutput().split("\n");
+		assertEquals(
+				"Choose an option: Enter your account number: Enter other account number: Enter amount to transfer:Invalid amount entered.",
+				lines[10].trim());
+		assertEquals("Aborting Transaction...", lines[11].trim());
+
+	}
+
+	@Test
+	void testTransfer_3() {
+
+		String input = "4 " + "\n102" + "\n103" + "\nf" + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertDoesNotThrow(() -> new Client("customer").displayMenu());
+		String[] lines = getOutput().split("\n");
+
+		assertEquals(
+				"Choose an option: Enter your account number: Enter other account number: Enter amount to transfer:Invalid amount entered.",
+				lines[10].trim());
+
+	}
+
+	@Test
+	void testTransfer_4() {
+
+		String input = "4 " + "\n102" + "\n103" + "\n100" + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertDoesNotThrow(() -> new Client("customer").displayMenu());
+		String[] lines = getOutput().split("\n");
+
+		assertEquals(
+				"Choose an option: Enter your account number: Enter other account number: Enter amount to transfer:Invalid Sender Account ID",
+				lines[10].trim());
+
+	}
+
+	@Test
+	void testListTransactions() {
+		String input = "7 " + "\n102" + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertDoesNotThrow(() -> new Client("customer").displayMenu());
+		String[] lines = getOutput().split("\n");
+		assertEquals(
+				"Choose an option: Enter your accountIdInvalid account Id",
+				lines[10].trim());
+	}
+
+	@Test
+	void testRepayLoan() {
+
+		String input = "6 " + "\n102" + "\n-100" + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertDoesNotThrow(() -> new Client("customer").displayMenu());
+		String[] lines = getOutput().split("\n");
+		assertEquals(
+				"Choose an option: Enter Loan Id: Enter Amount to Repay: Invalid amount entered.",
+				lines[10].trim());
+
+	}
+
+	@Test
+	void testRepayLoan_1() {
+
+		String input = "6 " + "\n102" + "\nj" + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertDoesNotThrow(() -> new Client("customer").displayMenu());
+		String[] lines = getOutput().split("\n");
+		assertEquals(
+				"Choose an option: Enter Loan Id: Enter Amount to Repay: Invalid amount entered.",
+				lines[10].trim());
+
+	}
+
+	@Test
+	void testRepayLoan_2() {
+
+		String input = "6 " + "\n102" + "\n200" + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		assertDoesNotThrow(() -> new Client("customer").displayMenu());
+		String[] lines = getOutput().split("\n");
+
+		assertEquals(
+				"Choose an option: Enter Loan Id: Enter Amount to Repay: Either loan Id is invalid or loan has not been approved yet.",
+				lines[10].trim());
+
+	}
+
+	@Test
 	void testToString() {
 		assertEquals("Client", new Client("user").toString());
 	}
