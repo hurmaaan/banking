@@ -72,7 +72,7 @@ public class Client implements Role {
                 System.out.println("Invalid amount entered.\n Aborting Transaction...");
                 return;
             }
-            new RepayLoan(amount).execute(new String[] { loanId, username });
+            new RepayLoan(amount, loanId).execute(new String[] { username });
         } catch (NumberFormatException e) {
             System.out.println("Invalid amount entered.");
 

@@ -19,6 +19,7 @@ import banking.Client;
 import banking.Deposit;
 import banking.RecordedCommand;
 import banking.Savings;
+import banking.Transfer;
 import banking.User;
 import banking.UserDatabase;
 import banking.Withdrawal;
@@ -171,6 +172,26 @@ class AccountTest {
 		a.withdraw(new Withdrawal(30), 30);
 
 		assertEquals("Withdrawal Accepted!\n New Balance: 300.0", getOutput().trim());
+
+	}
+
+	@Test
+	void transferInValid() {
+
+		Account s = new Account(0, Checking.getInstance(), user);
+		Account r = new Account(0, Checking.getInstance(), user);
+		Account.transfer(new Transfer(2, false, s.toString()), r, s, 20);
+		assertEquals("Insufficient Balance", getOutput().trim());
+
+	}
+
+	@Test
+	void transferValid() {
+
+		Account s = new Account(20, Checking.getInstance(), user);
+		Account r = new Account(0, Checking.getInstance(), user);
+		Account.transfer(new Transfer(2, false, s.toString()), r, s, 20);
+		assertEquals("Transfer Successfull!", getOutput().trim());
 
 	}
 

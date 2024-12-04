@@ -85,7 +85,7 @@ public class Account {
         System.out.println("Withdrawal Accepted!\n New Balance: " + balance);
     }
 
-    public static void transfer(Transfer transfer, List<Account> accounts, Account receiverAccount,
+    public static void transfer(Transfer transfer, Account receiverAccount,
             Account senderAccount,
             double amount) {
 

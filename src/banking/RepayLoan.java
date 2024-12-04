@@ -4,14 +4,15 @@ public class RepayLoan extends Transaction {
 
     private String loanId;
 
-    public RepayLoan(double amount) {
+    public RepayLoan(double amount, String loanId) {
         super(amount);
+        this.loanId = loanId;
     }
 
     @Override
     public void execute(String[] cmdParts) {
-        loanId = cmdParts[0];
-        String username = cmdParts[1];
+
+        String username = cmdParts[0];
         Loans.getInstance().repayLoan(this, loanId, username, Double.parseDouble(super.toString()));
 
     }

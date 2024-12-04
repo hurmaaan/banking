@@ -18,6 +18,7 @@ import banking.Checking;
 import banking.Client;
 import banking.LoanApproved;
 import banking.Savings;
+import banking.Transfer;
 import banking.User;
 import banking.UserDatabase;
 
@@ -145,6 +146,56 @@ class BankTest {
 		Account a = new Account(6, Savings.getInstance(), user);
 
 		assertEquals(null, bank.userHasAccount(user.toString(), a.toString()));
+	}
+
+	@Test
+	void testTransferInvalid_1() {
+		bank.transfer(new Transfer(0, false, "201"), "2098", "customer", "109", 0);
+		assertEquals("Inavlid Sender Account ID", getOutput().trim());
+
+	}
+
+	@Test
+	void testTransferInvalid_2() {
+		User user = UserDatabase.getInstance().findUser("emp");
+		Account a = new Account(0, Savings.getInstance(), user);
+		bank.addAccount(a);
+		bank.transfer(new Transfer(0, false, "201"), a.toString(), "emp", "1009", 0);
+
+		assertEquals("Invalid receiver account", getOutput().trim());
+
+	}
+
+	@Test
+	void testTransferValid() {
+		User user = UserDatabase.getInstance().findUser("emp");
+		Account r = new Account(0, Savings.getInstance(), user);
+		Account s = new Account(20, Checking.getInstance(), user);
+
+		bank.addAccount(s);
+		bank.addAccount(r);
+		bank.transfer(new Transfer(0, false, "x"), s.toString(), "emp", r.toString(), 10);
+		Bank.reset();
+		assertEquals("Transfer Successfull!", getOutput().trim());
+
+	}
+
+	@Test
+
+	void testListTransactionsInvalid() {
+		bank.listTransactions("xyz", "201");
+		assertEquals("Invalid account Id", getOutput().trim());
+
+	}
+
+	@Test
+	void testListTransactionsValid() {
+		User u = UserDatabase.getInstance().findUser("customer");
+		Account a = new Account(0, Savings.getInstance(), u);
+		bank.addAccount(a);
+		bank.listTransactions("customer", a.toString());
+		assertNotEquals("Invalid account Id", getOutput().trim());
+
 	}
 
 	PrintStream oldPrintStream;

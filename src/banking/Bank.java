@@ -104,17 +104,13 @@ public class Bank {
             System.out.println("Inavlid Sender Account ID");
             return;
         }
-        Account receiverAccount = null;
-        for (Account a : accounts) {
-            if (a.toString().equals(receiverAccountId)) {
-                receiverAccount = a;
-            }
-        }
+        Account receiverAccount = getAccountById(receiverAccountId);
+
         if (receiverAccount == null) {
             System.out.println("Invalid receiver account");
             return;
         }
-        Account.transfer(transfer, accounts, receiverAccount, senderAccount, amount);
+        Account.transfer(transfer, receiverAccount, senderAccount, amount);
 
     }
 
