@@ -52,10 +52,10 @@ class EmployeeTest {
 
 		String input = "9\n";
 		InputHandler.getInstance().setScanner(setInput(input));
-		new Employee().displayMenu();
+		new Employee("test").displayMenu();
 
 		String[] lines = getOutput().split("\n");
-		assertEquals("Choose an option: Logging out...", lines[11].trim());
+		assertEquals("Choose an option: Logging out...", lines[12].trim());
 		InputHandler.getInstance().close();
 	}
 
@@ -65,10 +65,10 @@ class EmployeeTest {
 		String input = "7 " + "\n9\n";
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		employee.displayMenu();
 		String[] lines = getOutput().split("\n");
-		assertEquals("Choose an option: Nothing to undo.", lines[11].trim());
+		assertEquals("Choose an option: Nothing to undo.", lines[12].trim());
 	}
 
 	@Test
@@ -77,10 +77,10 @@ class EmployeeTest {
 		String input = "8 " + "\n9\n";
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		employee.displayMenu();
 		String[] lines = getOutput().split("\n");
-		assertEquals("Choose an option: Nothing to redo.", lines[11].trim());
+		assertEquals("Choose an option: Nothing to redo.", lines[12].trim());
 	}
 
 	@Test
@@ -88,10 +88,10 @@ class EmployeeTest {
 		String input = "13 " + "\n9\n";
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		employee.displayMenu();
 		String[] lines = getOutput().split("\n");
-		assertEquals("Choose an option: Invalid choice, please try again.", lines[11].trim());
+		assertEquals("Choose an option: Invalid choice, please try again.", lines[12].trim());
 
 	}
 
@@ -100,12 +100,12 @@ class EmployeeTest {
 		String input = "1 " + "\nee" + "\n20" + "\nSavings" + "\n9\n";
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		employee.displayMenu();
 		String[] lines = getOutput().split("\n");
 		assertEquals(
 				"Choose an option: Enter user ID for the account: Enter initial deposit amount: Enter account type (Savings/Checking): User does not exist!",
-				lines[11].trim());
+				lines[12].trim());
 
 	}
 
@@ -114,13 +114,13 @@ class EmployeeTest {
 		String input = "1 " + "\ncustomer" + "\n-20" + "\nSavings" + "\n9\n";
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		employee.displayMenu();
 		String[] lines = getOutput().split("\n");
 		assertEquals(
 				"Choose an option: Enter user ID for the account: Enter initial deposit amount: Enter account type (Savings/Checking): Invalid amount entered.",
-				lines[11].trim());
-		assertEquals("Aborting Transaction...", lines[12].trim());
+				lines[12].trim());
+		assertEquals("Aborting Transaction...", lines[13].trim());
 
 	}
 
@@ -129,13 +129,13 @@ class EmployeeTest {
 		String input = "1 " + "\ncustomer" + "\ns4" + "\nSavings" + "\n9\n";
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		employee.displayMenu();
 
 		String[] lines = getOutput().split("\n");
 		assertEquals(
 				"Choose an option: Enter user ID for the account: Enter initial deposit amount: Enter account type (Savings/Checking): Invalid amount entered.",
-				lines[11].trim());
+				lines[12].trim());
 
 	}
 
@@ -146,14 +146,14 @@ class EmployeeTest {
 				.setScanner(setInput(input));
 		assertFalse(Bank.getInstance().hasAccount(UserDatabase.getInstance().findUser("customer")));
 
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		employee.displayMenu();
 		assertTrue(Bank.getInstance().hasAccount(UserDatabase.getInstance().findUser("customer")));
 
 		String[] lines = getOutput().split("\n");
 		assertEquals(
 				"Choose an option: Enter user ID for the account: Enter initial deposit amount: Enter account type (Savings/Checking): Account Opened Successfully!",
-				lines[11].trim());
+				lines[12].trim());
 
 	}
 
@@ -169,7 +169,7 @@ class EmployeeTest {
 
 		Bank.getInstance().addAccount(a);
 		assertTrue(Bank.getInstance().hasAccount(u));
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		employee.displayMenu();
 		assertFalse(Bank.getInstance().hasAccount(u));
 
@@ -177,7 +177,7 @@ class EmployeeTest {
 		// integration testing, all other branches have already been tested
 		assertEquals(
 				"Choose an option: Enter Account Id to close:Account Closed Successfully!",
-				lines[11].trim());
+				lines[12].trim());
 	}
 
 	@Test
@@ -186,12 +186,12 @@ class EmployeeTest {
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
 
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		employee.displayMenu();
 
 		String[] lines = getOutput().split("\n");
 
-		assertEquals("Choose an option: Enter new username:Username already exists!", lines[11].trim());
+		assertEquals("Choose an option: Enter new username:Username already exists!", lines[12].trim());
 	}
 
 	@Test
@@ -201,15 +201,15 @@ class EmployeeTest {
 				.setScanner(setInput(input));
 		assertNull(UserDatabase.getInstance().findUser("customer2"));
 
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		employee.displayMenu();
 		assertNotNull(UserDatabase.getInstance().findUser("customer2"));
 
 		String[] lines = getOutput().split("\n");
 		assertEquals(
 				"Choose an option: Enter new username:Enter PasswordRe-enter PasswordPasswords do not match. Try again.",
-				lines[11].trim());
-		assertEquals("Enter PasswordRe-enter PasswordUser added successfully!", lines[12].trim());
+				lines[12].trim());
+		assertEquals("Enter PasswordRe-enter PasswordUser added successfully!", lines[13].trim());
 	}
 
 	@Test
@@ -218,11 +218,11 @@ class EmployeeTest {
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
 
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		employee.displayMenu();
 		String[] lines = getOutput().split("\n");
 
-		assertEquals("Choose an option: Enter username:Invalid username", lines[11].trim());
+		assertEquals("Choose an option: Enter username:Invalid username", lines[12].trim());
 
 	}
 
@@ -232,11 +232,11 @@ class EmployeeTest {
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
 
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		employee.displayMenu();
 		String[] lines = getOutput().split("\n");
 
-		assertEquals("Choose an option: Enter username:Accounts belonging to customer", lines[11].trim());
+		assertEquals("Choose an option: Enter username:Accounts belonging to customer", lines[12].trim());
 
 	}
 
@@ -246,7 +246,7 @@ class EmployeeTest {
 		String input = "3 " + "\n9\n";
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		// integration testing
 		assertDoesNotThrow(() -> employee.displayMenu());
 
@@ -257,13 +257,13 @@ class EmployeeTest {
 		String input = "4 " + "\n2" + "\n3" + "\n9\n";
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		employee.displayMenu();
 		String[] lines = getOutput().split("\n");
-		assertEquals("Choose an option: WARNING!!! This action cannot be undone!", lines[11].trim());
-		assertEquals("Enter loan application ID: 1. Approve Loan", lines[12].trim());
-		assertEquals("2. Reject Loan", lines[13].trim());
-		assertEquals("Choose an option: Invalid option.", lines[14].trim());
+		assertEquals("Choose an option: WARNING!!! This action cannot be undone!", lines[12].trim());
+		assertEquals("Enter loan application ID: 1. Approve Loan", lines[13].trim());
+		assertEquals("2. Reject Loan", lines[14].trim());
+		assertEquals("Choose an option: Invalid option.", lines[15].trim());
 
 	}
 
@@ -272,12 +272,12 @@ class EmployeeTest {
 		String input = "4 " + "\n2" + "\n1" + "\n9\n";
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		assertDoesNotThrow(() -> employee.displayMenu());
 		String[] lines = getOutput().split("\n");
-		assertEquals("Choose an option: WARNING!!! This action cannot be undone!", lines[11].trim());
-		assertEquals("Enter loan application ID: 1. Approve Loan", lines[12].trim());
-		assertEquals("2. Reject Loan", lines[13].trim());
+		assertEquals("Choose an option: WARNING!!! This action cannot be undone!", lines[12].trim());
+		assertEquals("Enter loan application ID: 1. Approve Loan", lines[13].trim());
+		assertEquals("2. Reject Loan", lines[14].trim());
 
 	}
 
@@ -286,18 +286,18 @@ class EmployeeTest {
 		String input = "4 " + "\n2" + "\n2" + "\n9\n";
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
-		Employee employee = new Employee();
+		Employee employee = new Employee("test");
 		assertDoesNotThrow(() -> employee.displayMenu());
 		String[] lines = getOutput().split("\n");
-		assertEquals("Choose an option: WARNING!!! This action cannot be undone!", lines[11].trim());
-		assertEquals("Enter loan application ID: 1. Approve Loan", lines[12].trim());
-		assertEquals("2. Reject Loan", lines[13].trim());
+		assertEquals("Choose an option: WARNING!!! This action cannot be undone!", lines[12].trim());
+		assertEquals("Enter loan application ID: 1. Approve Loan", lines[13].trim());
+		assertEquals("2. Reject Loan", lines[14].trim());
 
 	}
 
 	@Test
 	void testToString() {
-		assertEquals("Employee", new Employee().toString());
+		assertEquals("Employee", new Employee("test").toString());
 	}
 
 	static InputStream setInput(String input) {

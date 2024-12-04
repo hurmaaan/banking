@@ -44,10 +44,10 @@ class ManagerTest {
 
 		String input = "5\n";
 		InputHandler.getInstance().setScanner(setInput(input));
-		new Manager().displayMenu();
+		new Manager("test").displayMenu();
 
 		String[] lines = getOutput().split("\n");
-		assertEquals("Logging out...", lines[8].trim());
+		assertEquals("Logging out...", lines[9].trim());
 		InputHandler.getInstance().close();
 	}
 
@@ -57,16 +57,16 @@ class ManagerTest {
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
 
-		Manager manager = new Manager();
+		Manager manager = new Manager("test");
 		manager.displayMenu();
 
 		String[] lines = getOutput().split("\n");
 
-		assertEquals("Set Interest Rates for Account Types:", lines[8].trim());
+		assertEquals("Set Interest Rates for Account Types:", lines[9].trim());
 		assertEquals(
 				"Enter interest rate for Savings Account (e.g., 0.03 for 3%): Enter interest rate for Checking Account (e.g., 0.01 for 1%):"
 						.trim(),
-				lines[9].trim());
+				lines[10].trim());
 
 	}
 
@@ -78,11 +78,11 @@ class ManagerTest {
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
 
-		Manager manager = new Manager();
+		Manager manager = new Manager("test");
 		manager.displayMenu();
 
 		String[] lines = getOutput().split("\n");
-		assertEquals("Choose an option: Nothing to undo.", lines[7].trim());
+		assertEquals("Choose an option: Nothing to undo.", lines[8].trim());
 	}
 
 	@Test
@@ -93,11 +93,11 @@ class ManagerTest {
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
 
-		Manager manager = new Manager();
+		Manager manager = new Manager("test");
 		manager.displayMenu();
 
 		String[] lines = getOutput().split("\n");
-		assertEquals("Choose an option: Nothing to redo.", lines[7].trim());
+		assertEquals("Choose an option: Nothing to redo.", lines[8].trim());
 	}
 
 	@Test
@@ -106,14 +106,14 @@ class ManagerTest {
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
 
-		Manager manager = new Manager();
+		Manager manager = new Manager("test");
 		manager.displayMenu();
 
 		String[] lines = getOutput().split("\n");
-		assertEquals("Choose an option: Employee Management:", lines[7].trim());
-		assertEquals("1. Add Employee", lines[8].trim());
-		assertEquals("2. Remove Employee", lines[9].trim());
-		assertEquals("Choose an option: Invalid option. Returning to menu.", lines[10].trim());
+		assertEquals("Choose an option: Employee Management:", lines[8].trim());
+		assertEquals("1. Add Employee", lines[9].trim());
+		assertEquals("2. Remove Employee", lines[10].trim());
+		assertEquals("Choose an option: Invalid option. Returning to menu.", lines[11].trim());
 
 	}
 
@@ -123,12 +123,12 @@ class ManagerTest {
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
 
-		Manager manager = new Manager();
+		Manager manager = new Manager("test");
 		manager.displayMenu();
 
 		String[] lines = getOutput().split("\n");
 
-		assertEquals("Choose an option: Enter new username:Username already exists!", lines[10].trim());
+		assertEquals("Choose an option: Enter new username:Username already exists!", lines[11].trim());
 
 	}
 
@@ -139,15 +139,15 @@ class ManagerTest {
 				.setScanner(setInput(input));
 		assertNull(UserDatabase.getInstance().findUser("emp2"));
 
-		Manager manager = new Manager();
+		Manager manager = new Manager("test");
 		manager.displayMenu();
 
 		String[] lines = getOutput().split("\n");
 
 		assertEquals(
 				"Choose an option: Enter new username:Enter PasswordRe-enter PasswordPasswords do not match. Try again.",
-				lines[10].trim());
-		assertEquals("Enter PasswordRe-enter PasswordUser added successfully!", lines[11].trim());
+				lines[11].trim());
+		assertEquals("Enter PasswordRe-enter PasswordUser added successfully!", lines[12].trim());
 		assertNotNull(UserDatabase.getInstance().findUser("emp2"));
 
 	}
@@ -158,11 +158,11 @@ class ManagerTest {
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
 
-		Manager manager = new Manager();
+		Manager manager = new Manager("test");
 		manager.displayMenu();
 
 		String[] lines = getOutput().split("\n");
-		assertEquals("Choose an option: Enter username of employee to remove: Invalid username.", lines[10].trim());
+		assertEquals("Choose an option: Enter username of employee to remove: Invalid username.", lines[11].trim());
 
 	}
 
@@ -173,13 +173,13 @@ class ManagerTest {
 				.setScanner(setInput(input));
 		assertNotNull(UserDatabase.getInstance().findUser("emp"));
 
-		Manager manager = new Manager();
+		Manager manager = new Manager("test");
 		manager.displayMenu();
 		assertNull(UserDatabase.getInstance().findUser("emp"));
 		String[] lines = getOutput().split("\n");
 
 		assertEquals("Choose an option: Enter username of employee to remove: Employee removed successfully",
-				lines[10].trim());
+				lines[11].trim());
 
 	}
 
@@ -189,15 +189,15 @@ class ManagerTest {
 		InputHandler.getInstance()
 				.setScanner(setInput(input));
 
-		Manager manager = new Manager();
+		Manager manager = new Manager("test");
 		manager.displayMenu();
 		String[] lines = getOutput().split("\n");
-		assertEquals("Choose an option: Invalid choice, please try again.", lines[7].trim());
+		assertEquals("Choose an option: Invalid choice, please try again.", lines[8].trim());
 
 	}
 	@Test
 	void testToString() {
-		assertEquals("Manager",new Manager().toString());
+		assertEquals("Manager",new Manager("test").toString());
 	}
 
 	static InputStream setInput(String input) {

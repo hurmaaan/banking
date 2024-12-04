@@ -23,8 +23,8 @@ import banking.Authenticator;
 
 class AuthenticatorTest {
 	private static User user1 = new User("test", "test123", new Client("test"));
-	private static User user2 = new User("test2", "test123", new Manager());
-	private static User user3 = new User("test3", "test123", new Employee());
+	private static User user2 = new User("test2", "test123", new Manager("test2"));
+	private static User user3 = new User("test3", "test123", new Employee("test3"));
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
