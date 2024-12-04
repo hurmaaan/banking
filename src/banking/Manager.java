@@ -1,10 +1,12 @@
 package banking;
 
-public class Manager implements Role {
+public class Manager extends Client {
     private InputHandler scanner;
 
-    public Manager() {
+    public Manager(String username) {
+        super(username);
         scanner = InputHandler.getInstance();
+
     }
 
     @Override
@@ -16,6 +18,8 @@ public class Manager implements Role {
             System.out.println("3. Undo Last Command.");
             System.out.println("4. Redo Last Command");
             System.out.println("5. Logout");
+            System.out.println("6. Manage your accounts.");
+
             System.out.print("Choose an option: ");
             int choice = scanner.getNextInt();
             scanner.getNextLine();
@@ -36,6 +40,9 @@ public class Manager implements Role {
                 case 5:
                     RecordedCommand.reset();
                     System.out.println("\nLogging out...");
+                    return;
+                case 6:
+                    super.displayMenu();
                     return;
                 default:
                     System.out.println("Invalid choice, please try again.");

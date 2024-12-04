@@ -1,7 +1,11 @@
 package banking;
 
-public class Employee implements Role {
+public class Employee extends Client {
     private InputHandler scanner = InputHandler.getInstance();
+
+    public Employee(String username) {
+        super(username);
+    }
 
     @Override
     public void displayMenu() {
@@ -17,6 +21,7 @@ public class Employee implements Role {
             System.out.println("7. Undo Last Action");
             System.out.println("8. Redo Last Action");
             System.out.println("9. Logout");
+            System.out.println("10. Manage your account");
             System.out.print("Choose an option: ");
             int choice = scanner.getNextInt();
             scanner.getNextLine();
@@ -49,6 +54,9 @@ public class Employee implements Role {
                 case 9:
                     RecordedCommand.reset();
                     System.out.println("Logging out...");
+                    return;
+                case 10:
+                    super.displayMenu();
                     return;
                 default:
                     System.out.println("Invalid choice, please try again.");

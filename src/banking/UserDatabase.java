@@ -18,8 +18,8 @@ public class UserDatabase {
     private UserDatabase() {
         users = new ArrayList<>();
         // default accounts
-        users.add(new User("admin", "admin123", new Manager()));
-        users.add(new User("emp", "manager123", new Employee()));
+        users.add(new User("admin", "admin123", new Manager("admin")));
+        users.add(new User("emp", "manager123", new Employee("emp")));
         users.add(new User("customer", "customer123", new Client("customer")));
     }
 
