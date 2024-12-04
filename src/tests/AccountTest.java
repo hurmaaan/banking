@@ -16,10 +16,12 @@ import banking.Account;
 import banking.Bank;
 import banking.Checking;
 import banking.Client;
+import banking.Deposit;
 import banking.RecordedCommand;
 import banking.Savings;
 import banking.User;
 import banking.UserDatabase;
+import banking.Withdrawal;
 
 class AccountTest {
 
@@ -137,6 +139,39 @@ class AccountTest {
 	@Test
 	void testToString() {
 		assertEquals("109", acc.toString()); // 109 is always the id of the first account
+	}
+
+	@Test
+	void testDeposit_ListTransactions() {
+		Account ac = new Account(20, Savings.getInstance(), user);
+		ac.deposit(new Deposit(20), 20.0);
+		ac.listTransactions();
+		String[] output = getOutput().split("\n");
+		assertEquals("Deposit Successful!", output[0].trim());
+		assertEquals("New Balance: 40.0", output[1].trim());
+
+		assertEquals("Account ID: " + ac.toString(), output[2].trim());
+		assertEquals("Balance: 40.0", output[3].trim());
+		assertEquals("Type: Savings", output[4].trim());
+		assertEquals("------", output[5].trim());
+		assertEquals("Deposited 20.0", output[6].trim());
+
+	}
+
+	@Test
+	void withdrawalInvalid() {
+		Account a = new Account(20, Checking.getInstance(), null);
+		a.withdraw(new Withdrawal(30), 30);
+		assertEquals("Not Enough Balance", getOutput().trim());
+	}
+
+	@Test
+	void withdrawalValid() {
+		Account a = new Account(330, Checking.getInstance(), null);
+		a.withdraw(new Withdrawal(30), 30);
+
+		assertEquals("Withdrawal Accepted!\n New Balance: 300.0", getOutput().trim());
+
 	}
 
 	PrintStream oldPrintStream;

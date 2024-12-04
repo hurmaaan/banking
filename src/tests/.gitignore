@@ -31,3 +31,6 @@
 /CmdApproveLoanTest.class
 /CmdRejectLoanTest.class
 /CmdApplyLoanTest.class
+/DepositTest.class
+/WithdrawalTest.class
+/TransferTest.class

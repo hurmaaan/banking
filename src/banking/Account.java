@@ -85,20 +85,10 @@ public class Account {
         System.out.println("Withdrawal Accepted!\n New Balance: " + balance);
     }
 
-    public static void transfer(Transfer transfer, List<Account> accounts, String receiverAccountId,
+    public static void transfer(Transfer transfer, List<Account> accounts, Account receiverAccount,
             Account senderAccount,
             double amount) {
-        Account receiverAccount = null;
-        for (Account a : accounts) {
-            if (a.accountId.equals(receiverAccountId)) {
-                receiverAccount = a;
-            }
-        }
 
-        if (receiverAccount == null) {
-            System.out.println("Invalid receiver account");
-            return;
-        }
         if (senderAccount.balance < amount) {
             System.out.println("Insufficient Balance");
             return;
