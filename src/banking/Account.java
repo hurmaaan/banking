@@ -122,7 +122,10 @@ public class Account {
         System.out.println("Repayment Made!");
         if (amount > outstandingBalance) {
             balance += amount - outstandingBalance; // add the difference when client repays more than loanamount
-            transactions.add(new LoanRepaymentAdjustment(amount - outstandingBalance));
+            Transaction t = new LoanRepaymentAdjustment(amount - outstandingBalance);
+
+            t.execute(new String[] { repayLoan.toString().split(" ")[4] });
+            transactions.add(t);
         }
         return amount;
 

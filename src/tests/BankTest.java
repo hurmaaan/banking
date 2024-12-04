@@ -151,7 +151,7 @@ class BankTest {
 	@Test
 	void testTransferInvalid_1() {
 		bank.transfer(new Transfer(0, false, "201"), "2098", "customer", "109", 0);
-		assertEquals("Inavlid Sender Account ID", getOutput().trim());
+		assertEquals("Invalid Sender Account ID", getOutput().trim());
 
 	}
 

@@ -13,8 +13,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import banking.Account;
+import banking.Bank;
+import banking.Checking;
 import banking.LoanApplication;
 import banking.Loans;
+import banking.RepayLoan;
 import banking.Savings;
 import banking.User;
 import banking.UserDatabase;
@@ -99,6 +102,99 @@ class LoanApplicationTest {
 		String[] outputLines = getOutput().split("\n");
 		assertEquals("--- Pending Loan Applications ---", outputLines[0].trim());
 		assertEquals("Loan ID: 2, Account ID: 109, Amount: 23.0", outputLines[1].trim());
+
+	}
+
+	@Test
+	void testRepayLoan_1() {
+		RepayLoan r = new RepayLoan(0, "324");
+		Account a = new Account(0, Checking.getInstance(), null);
+		LoanApplication loan = new LoanApplication(a, 300);
+		loan.repayLoan(r, "customer", 0);
+		assertEquals("Invalid loan id", getOutput().trim());
+
+	}
+
+	@Test
+	void testRepayLoan_2() {
+		RepayLoan r = new RepayLoan(0, "324");
+		User u = UserDatabase.getInstance().findUser("customer");
+		Account a = new Account(0, Checking.getInstance(), u);
+		Bank.getInstance().addAccount(a);
+		LoanApplication loan = new LoanApplication(a, 300);
+		assertDoesNotThrow(() -> loan.repayLoan(r, "customer", 0));
+		assertEquals("", getOutput().trim());
+
+	}
+
+	@Test
+
+	void testRepayLoan_3() {
+		User u = UserDatabase.getInstance().findUser("customer");
+
+		Account a = new Account(0, Checking.getInstance(), u);
+		Account b = new Account(0, Checking.getInstance(), u);
+		Bank.getInstance().addAccount(b);
+		LoanApplication loan = new LoanApplication(a, 300);
+		ArrayList<LoanApplication> loans = new ArrayList<>();
+		loans.add(loan);
+		LoanApplication createdLoan = LoanApplication.createLoanApplication(loans, b, 12, 5000000);
+		createdLoan.approveLoan();
+
+		RepayLoan r = new RepayLoan(12, createdLoan.toString());
+
+		createdLoan.repayLoan(r, "customer", 12);
+		assertEquals("Amount cannot be less than monthly payment", getOutput().split("\n")[3].trim());
+
+	}
+
+	@Test
+
+	void testRepayLoan_4() {
+		Bank.reset();
+		Account.reset();
+		
+		User u = UserDatabase.getInstance().findUser("customer");
+
+		Account a = new Account(0, Checking.getInstance(), u);
+		Account b = new Account(6000, Checking.getInstance(), u);
+		Bank.getInstance().addAccount(b);
+		Bank.getInstance().addAccount(a);
+		LoanApplication loan = new LoanApplication(a, 300);
+		ArrayList<LoanApplication> loans = new ArrayList<>();
+		loans.add(loan);
+		LoanApplication createdLoan = LoanApplication.createLoanApplication(loans, b, 12, 50000);
+		createdLoan.approveLoan();
+
+		RepayLoan r = new RepayLoan(6000, createdLoan.toString());
+
+		createdLoan.repayLoan(r, "customer", 6000);
+		assertEquals("Repayment Made!", getOutput().split("\n")[3].trim());
+
+	}
+	
+	@Test
+
+	void testRepayLoan_5() {
+		Bank.reset();
+		Account.reset();
+		
+		User u = UserDatabase.getInstance().findUser("customer");
+
+		Account a = new Account(0, Checking.getInstance(), u);
+		Account b = new Account(6000, Checking.getInstance(), u);
+		Bank.getInstance().addAccount(b);
+		Bank.getInstance().addAccount(a);
+		LoanApplication loan = new LoanApplication(a, 300);
+		ArrayList<LoanApplication> loans = new ArrayList<>();
+		loans.add(loan);
+		LoanApplication createdLoan = LoanApplication.createLoanApplication(loans, b, 12, 5000);
+		createdLoan.approveLoan();
+
+		RepayLoan r = new RepayLoan(6000, createdLoan.toString());
+
+		createdLoan.repayLoan(r, "customer", 6000);
+		assertEquals("Loan Fully Repaid!", getOutput().split("\n")[4].trim());
 
 	}
 

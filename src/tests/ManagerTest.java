@@ -195,9 +195,21 @@ class ManagerTest {
 		assertEquals("Choose an option: Invalid choice, please try again.", lines[8].trim());
 
 	}
+
+	@Test
+	void testClientMenu() {
+		String input = "6 " + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		Manager manager = new Manager("test");
+		assertDoesNotThrow(() -> manager.displayMenu());
+		String[] lines = getOutput().split("\n");
+		assertEquals("--- Client Menu ---", lines[9].trim());
+	}
+
 	@Test
 	void testToString() {
-		assertEquals("Manager",new Manager("test").toString());
+		assertEquals("Manager", new Manager("test").toString());
 	}
 
 	static InputStream setInput(String input) {

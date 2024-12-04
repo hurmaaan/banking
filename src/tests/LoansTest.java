@@ -16,6 +16,7 @@ import banking.Bank;
 import banking.Checking;
 import banking.LoanApplication;
 import banking.Loans;
+import banking.RepayLoan;
 import banking.Savings;
 import banking.User;
 import banking.UserDatabase;
@@ -93,6 +94,40 @@ class LoansTest {
 	@Test
 	void testRejectLoan() {
 		assertFalse(loans.rejectLoan("3"));
+	}
+
+	@Test
+	void testRepayLoan_1() {
+		RepayLoan r = new RepayLoan(30, "x");
+		loans.repayLoan(r, "x", "y", 0);
+		assertEquals("Either loan Id is invalid or loan has not been approved yet.", getOutput().trim());
+	}
+
+	@Test
+	void testRepayLoan_2() throws Exception{
+		Loans.reset();
+//		LoanApplication.reset();
+		User u = UserDatabase.getInstance().findUser("emp");
+		Account a = new Account(50, Checking.getInstance(), u);
+		Bank.getInstance().addAccount(a);
+		loans.createLoanApplication(a, 12, 30);
+		
+		String[] lines = getOutput().split("\n");
+		setOutput();
+		
+		String loanId = Character.toString(lines[2].trim().charAt(lines[2].trim().length()-1));
+		assertTrue(loans.approveLoan(loanId));
+		
+		
+		loans.createLoanApplication(a, 12, 30);
+		lines = getOutput().split("\n");
+		String loanId2 = Character.toString(lines[2].trim().charAt(lines[2].trim().length()-1));
+		assertTrue(loans.approveLoan(loanId2));
+		setOutput();
+		RepayLoan r = new RepayLoan(30, loanId2);
+		loans.repayLoan(r, loanId2, "emp", 30);
+		
+		assertEquals("Loan Fully Repaid!", getOutput().split("\n")[1].trim());
 	}
 
 	PrintStream oldPrintStream;

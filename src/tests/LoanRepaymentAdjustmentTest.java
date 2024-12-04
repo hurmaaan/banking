@@ -32,7 +32,8 @@ class LoanRepaymentAdjustmentTest {
 	@Test
 	void test() {
 		Transaction t = new LoanRepaymentAdjustment(2.3);
-		assertEquals("Loan repayment Adjustment: 2.3", t.toString());
+		t.execute(new String[] {"3"});
+		assertEquals("Loan repayment Adjustment: 2.3 from loanId: 3", t.toString());
 	}
 
 }

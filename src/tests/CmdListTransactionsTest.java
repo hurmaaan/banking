@@ -11,13 +11,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import banking.RepayLoan;
+import banking.CmdListTransactions;
 
-class RepayLoanTest {
+class CmdListTransactionsTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		
 	}
 
 	@AfterAll
@@ -34,17 +33,12 @@ class RepayLoanTest {
 	}
 
 	@Test
-	void testExecuteIntegration() {
-		
-		assertDoesNotThrow(() -> new RepayLoan(0, "x").execute(new String[] { "null" }));
-		assertEquals("Either loan Id is invalid or loan has not been approved yet.",getOutput().trim());
+	void testIntegration() {
+
+		assertDoesNotThrow(() -> new CmdListTransactions().execute(new String[] { "username", "accid" }));
+		assertEquals("Invalid account Id", getOutput().trim());
 	}
 
-	@Test
-	void testToString() {
-		RepayLoan r = new RepayLoan(20, "20");
-		assertEquals("Repaid 20.0 for loan 20", r.toString());
-	}
 	PrintStream oldPrintStream;
 	ByteArrayOutputStream bos;
 
@@ -58,6 +52,4 @@ class RepayLoanTest {
 		System.setOut(oldPrintStream);
 		return bos.toString();
 	}
-
-
 }

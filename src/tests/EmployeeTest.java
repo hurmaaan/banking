@@ -296,6 +296,17 @@ class EmployeeTest {
 	}
 
 	@Test
+	void testClientMenu() {
+		String input = "10 " + "\n8\n";
+		InputHandler.getInstance()
+				.setScanner(setInput(input));
+		Employee employee = new Employee("test");
+		assertDoesNotThrow(() -> employee.displayMenu());
+		String[] lines = getOutput().split("\n");
+		assertEquals("--- Client Menu ---", lines[13].trim());
+	}
+
+	@Test
 	void testToString() {
 		assertEquals("Employee", new Employee("test").toString());
 	}

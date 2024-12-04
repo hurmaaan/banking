@@ -221,7 +221,7 @@ class AccountTest {
 		Account a = new Account(200, Checking.getInstance(), null);
 		assertEquals(20, a.repayLoan(r, 20, 10));
 		a.listTransactions();
-		assertEquals("Loan repayment Adjustment: 10.0", getOutput().split("\n")[6]);
+		assertEquals("Loan repayment Adjustment: 10.0 from loanId: 2", getOutput().split("\n")[6].trim());
 
 	}
 

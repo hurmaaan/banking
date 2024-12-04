@@ -101,7 +101,7 @@ public class Bank {
     public void transfer(Transfer transfer, String accId, String username, String receiverAccountId, double amount) {
         Account senderAccount = userHasAccount(username, accId);
         if (senderAccount == null) {
-            System.out.println("Inavlid Sender Account ID");
+            System.out.println("Invalid Sender Account ID");
             return;
         }
         Account receiverAccount = getAccountById(receiverAccountId);
