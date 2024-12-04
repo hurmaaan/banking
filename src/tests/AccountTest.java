@@ -18,6 +18,7 @@ import banking.Checking;
 import banking.Client;
 import banking.Deposit;
 import banking.RecordedCommand;
+import banking.RepayLoan;
 import banking.Savings;
 import banking.Transfer;
 import banking.User;
@@ -192,6 +193,35 @@ class AccountTest {
 		Account r = new Account(0, Checking.getInstance(), user);
 		Account.transfer(new Transfer(2, false, s.toString()), r, s, 20);
 		assertEquals("Transfer Successfull!", getOutput().trim());
+
+	}
+
+	@Test
+
+	void testRepayLoan() {
+		RepayLoan r = new RepayLoan(20000, "2");
+		Account a = new Account(0, Checking.getInstance(), null);
+		a.repayLoan(r, 20000, 20);
+		assertEquals("Insufficient Balance.", getOutput().trim());
+
+	}
+
+	@Test
+	void testRepayLoan_2() {
+		RepayLoan r = new RepayLoan(200, "2");
+		Account a = new Account(200, Checking.getInstance(), null);
+		assertEquals(20, a.repayLoan(r, 20, 2000));
+		assertEquals("Repayment Made!", getOutput().trim());
+
+	}
+
+	@Test
+	void testRepayLoan_3() {
+		RepayLoan r = new RepayLoan(200, "2");
+		Account a = new Account(200, Checking.getInstance(), null);
+		assertEquals(20, a.repayLoan(r, 20, 10));
+		a.listTransactions();
+		assertEquals("Loan repayment Adjustment: 10.0", getOutput().split("\n")[6]);
 
 	}
 
