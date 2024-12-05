@@ -40,6 +40,48 @@
 
 ```
 
+# Banking Management System
+
+## Overview
+
+The Banking Management System is a simple command-line application designed to streamline banking operations. It allows users to create accounts, deposit and withdraw funds, apply for loans, and check account balances. The application supports three distinct roles: Manager, User, and Employee, each with specific functionalities to enhance the banking experience.
+
+## Roles
+
+- **Manager**: 
+  - Can add and remove employees.
+
+- **Client**: 
+  - Can deposit and withdraw funds, check account balances, and apply for loans.
+  - Limited to managing their own account.
+
+- **Employee**: 
+  - Register new users.
+  - Opening/closing accounts.
+  - approving/rejecting loan applications
+
+## Features
+
+- **User Account Management**: Create and manage customer accounts with essential details.
+- **Transactions**: Perform deposits and withdrawals with real-time balance updates.
+- **Account Inquiry**: Check account balance and transaction history.
+- **Loan Management**: Users can apply for loans and manage repayments.
+- **Role-Based Access**: Different functionalities based on user roles (Manager, User, Employee).
+
+
+## Loan Functionality
+
+- **Apply for a Loan**: Users can apply for various loan types (e.g., personal, home, auto) with specified amounts and terms.
+- **Loan Approval Process**: Employees can review and approve or deny loan applications.
+- **Repayment Management**: Users can manage repayments through the application.
+
+## Technologies Used
+
+- **Java**: The primary programming language used for the application.
+- **Object-Oriented Programming**: Utilizes OOP principles for better code organization and reusability.
+
+## Usage
+
 # Running the app
 
 ## Prerequisites
